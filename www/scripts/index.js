@@ -9,6 +9,9 @@
 
     function onDeviceReady() {
         // Handle the Cordova pause and resume events
+
+
+
         document.addEventListener( 'pause', onPause.bind( this ), false );
         document.addEventListener( 'resume', onResume.bind( this ), false );
         
@@ -18,6 +21,10 @@
         var receivedElement = parentElement.querySelector('.received');
         listeningElement.setAttribute('style', 'display:none;');
         receivedElement.setAttribute('style', 'display:block;');
+
+
+
+
     };
 
     function onPause() {

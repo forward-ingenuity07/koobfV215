@@ -79,7 +79,5 @@
     <splash src="resources/android/splash/drawable-port-xxxhdpi-screen.png" density="port-xxxhdpi" />
   </platform>
   <plugin name="cordova-plugin-whitelist" version="1.3.3" />
-  <plugin name="phonegap-plugin-push" version="2.1.2">
-    <variable name="SENDER_ID" value="867553565277" />
-  </plugin>
+  <plugin name="com.pushwoosh.plugins.pushwoosh" version="3.5.3" />
 </widget>
