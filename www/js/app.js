@@ -45,7 +45,7 @@ angular.module('mobionicApp', ['ionic', 'mobionicApp.controllers', 'mobionicApp.
     }
     
     // Uncomment the following initialization when you have made the appropriate configuration for iOS - http://goo.gl/YKQL8k and for Android - http://goo.gl/SPGWDJ
-    // initPushwoosh();
+     initPushwoosh();
     
 
         // OneSignal Code start:
