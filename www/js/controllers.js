@@ -717,13 +717,14 @@ angular.module('mobionicApp.controllers', [])
     
 })
 
-.controller('AppCtrl', function($scope,$ionicLoading, $ionicModal, $timeout, MenuData,  $ionicActionSheet, $ionicPlatform) {
+.controller('AppCtrl', function($scope,$ionicLoading, $ionicModal, $timeout,$ionicPopup, MenuData,  $ionicActionSheet, $ionicPlatform) {
    
   $scope.items = MenuData.items;
     $scope.profileMenu=MenuData.profileMenu;
   // Form data for the login modal
   $scope.loginData = {};
   $scope.SellData = {};
+    
   // Create the login modal that we will use later
     $ionicModal.fromTemplateUrl('templates/login.html', {
         id:'1',
@@ -794,7 +795,39 @@ angular.module('mobionicApp.controllers', [])
       });
 
     // Simulate a login delay. Remove this and replace with your login
-    // code if using a login system
+      // code if using a login system
+
+
+      var title = $scope.BookRequestData.title;
+      var code = $scope.BookRequestData.ModuleCode;
+      var e = document.getElementById("faculty_chosen");
+      var faculty = e.options[e.selectedIndex].value;
+      var year = $("input[name='year']:checked").val();
+      var dataString = "title=" + title + "&code=" + code + "&faculty=" + faculty + "&year=" + year + "insert=";
+      $.ajax({
+          type: "POST",
+          url: "http://forwardingenuity.com/phps/book_requests.php",
+          data: dataString,
+          crossDomain: true,
+          cache: false,
+          timeout: 7000,
+          beforeSend: function () { $("#insert").text('Requesting...'); },
+          success: function (data) {
+              if (data == "success") {
+                  //           alert("inserted");
+                  window.localStorage.setItem("submitted_request", "1");
+              }
+              else if (data == "error") {
+                  window.localStorage.setItem("submitted_request", "0");
+              }
+          },
+          error: function (jqXHR, exception) {
+              window.localStorage.setItem("submitted_request", "3");
+
+          }
+      });
+
+
       $timeout(function () {
           $scope.loading.hide();
       $scope.closeLogin();
@@ -833,6 +866,74 @@ angular.module('mobionicApp.controllers', [])
         return arr;
 }
  
+    $scope.doBookRequest = function () {
+        $scope.loading = $ionicLoading.show({
+            template: '<i class="icon ion-loading-c"></i>Sending request',
+
+            //Will a dark overlay or backdrop cover the entire view
+            showBackdrop: false,
+
+            // The delay in showing the indicator
+            showDelay: 10
+        });
+        var title = $scope.BookRequestData.title;
+        var code = $scope.BookRequestData.ModuleCode;
+        var e = document.getElementById("faculty_chosen");
+        var faculty = e.options[e.selectedIndex].value;
+        var year = $("input[name='year']:checked").val();
+        var dataString="title="+title+"&code="+code+"&faculty="+faculty+"&year="+year+"insert=";
+        $.ajax({
+            type: "POST",
+            url: "http://forwardingenuity.com/phps/book_requests.php",
+            data: dataString,
+            crossDomain: true,
+            cache: false,
+            timeout: 7000,
+            beforeSend: function () { $("#insert").text('Requesting...'); },
+            success: function (data) {
+                if (data == "success") {
+                    //           alert("inserted");
+                    window.localStorage.setItem("submitted_request", "1");
+                }
+                else if (data == "error") {
+                    window.localStorage.setItem("submitted_request", "0");
+                }
+            },
+            error: function (jqXHR, exception) {
+                window.localStorage.setItem("submitted_request", "3");
+
+            }
+        });
+        $timeout(function () {
+            if (window.localStorage.getItem("submitted_request") == "1") {
+                $ionicLoading.hide();
+
+                var myPopup = $ionicPopup.show({
+                    template: 'Request sent successfully, we shall give you feedback soon :)',
+                    scope: $scope,
+
+                    buttons: [
+                       { text: 'OK' }, {
+
+                           onTap: function (e) {
+
+                               if (!$scope.data.model) {
+                                   //don't allow the user to close unless he enters model...
+                                   e.preventDefault();
+                               } else {
+                                   return $scope.data.model;
+                               }
+                           }
+                       }
+                    ]
+                });
+
+            }
+        },2000)
+
+    }
+    
+
 
 })
 
