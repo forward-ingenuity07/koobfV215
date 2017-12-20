@@ -1,0 +1,42 @@
+<ion-view title="ForBooks">
+    <ion-nav-buttons side="left">
+    <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+    </ion-nav-buttons>
+    <ion-nav-buttons side="right">
+    <a class="button button-clear" href="#/app/settings"><i class="icon ion-gear-a"></i></a>
+    </ion-nav-buttons>
+    <ion-content class="has-header">
+        
+		<div class="screen">
+            
+        <!--    <div class="item item-text-wrap">
+                <h1 style="color:#0969B5;">Sweat Brand</h1>
+                <h2>Defeating the struggle</h2>
+            </div>
+		-->
+            
+            </div>
+
+		<div ng-repeat="item in items" ng-if="$index%2==0" class="row">
+
+			<div class="card col home">
+				<a class="item item-text-wrap" href="{{items[$index].url}}" \>
+					<h1><i class="icon {{items[$index].icon}}"></i></h1>
+					<h2>{{items[$index].title}}</h2>
+                    <span class="item-note">{{items[$index].note}}</span>
+				</a>
+			</div>
+            
+
+			<div class="card col home">
+				<a class="item item-text-wrap" href="{{items[$index + 1].url}}" >
+					<h1><i class="icon {{items[$index + 1].icon}}"></i></h1>
+					<h2>{{items[$index + 1].title}}</h2>
+                    <span class="item-note">{{items[$index + 1].note}}</span>
+				</a>
+			</div>
+
+		</div>
+
+    </ion-content>
+</ion-view>

@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Competition Sign Up LeadPage</title>
+    <meta charset="utf-8">
+    <meta name="format-detection"
+          content="telephone=no" />
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Security-Policy" content="default-src *; style-src *  'unsafe-inline'; script-src *  'unsafe-inline'; media-src *">
+
+    <script src="../js/jquery-1.10.2.js"></script>
+    <script src="../js/jquery.countdown.min.js" type="text/javascript"></script>
+
+
+    <script src="../js/angular.js"></script>
+    <script src="../js/html5shiv.js"></script>
+    <script src="../js/functions.js"></script>
+</head>
+<body ng-app="module1">
+
+    <div ng-controller="cont">
+        <p>{{ready}}</p>
+
+
+    </div>
+    <script>
+        var App = angular.module("module1", []);
+
+        App.controller("cont", function ($scope,$interval,$http) {
+            $http({
+                method: 'GET',
+                url: 'http://forwardingenuity.com/json_competitions.php'
+            })
+   .then(function (response) {
+       $scope.ready = (response.data)[0].winning;
+       
+   })
+
+        })
+
+    </script>
+</body>
+</html>

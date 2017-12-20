@@ -1,0 +1,48 @@
+﻿<ion-view title="{{name}}">
+    <ion-nav-buttons side="right">
+        <button menu-toggle="right" class="button button-icon icon ion-navicon"></button>
+    </ion-nav-buttons>
+    <ion-content class="has-header">
+        <md-card>
+            <md-card-header>
+                <center>
+                    <md-card-avatar>
+                        <img class="md-user-avatar" src="../img/money_eyes.png" />
+                    </md-card-avatar>
+                </center>
+                <md-card-header-text>
+                    <span class="md-title"><b>{{name}}</b></span>
+                    <span class="md-subhead"><i ng-repeat="number in getNumber(filled)" class="icon ion-ios-star"></i><i ng-repeat="number in getNumber(empty-filled)" class="icon ion-ios-star-outline"></i></span>
+                </md-card-header-text>
+            </md-card-header>
+            
+                <md-list-item class="md-3-line" ng-click="#" data-toggle="modal" data-target="#lightbox{{x.id}}">
+                    <img src="../car.jpg" class="md-avatar" />
+                    <div class="md-list-item-text" layout="column">
+                        <p><b>Book1</b></p>
+                        <p>Faculty of engineering and built environment</p>
+                        <!-- <p><i class="fa fa-tag fa"></i><i><span ng-repeat="tag in x.tags">{{tag}}{{$last ? '' : ', '}}</span></i></p>-->
+                    </div>
+                                </md-list-item>
+            
+<!--
+            <md-card-title>
+                <md-card-title-text>
+                    <span class="md-headline">Card headline</span>
+                    <span class="md-subhead">Card subheader</span>
+                </md-card-title-text>
+            </md-card-title>
+    -->
+            <div class="row">
+                <div class="card col home">
+                    <a role="button" class="item item-text-wrap" ng-click="sell_modal()">
+                        <h1><i class="icon ion-plus"></i></h1>
+                    </a>
+                </div>
+
+
+            </div>    
+</md-card>
+        
+     </ion-content>
+</ion-view>

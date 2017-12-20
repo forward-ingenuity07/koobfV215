@@ -1,0 +1,24 @@
+﻿<div class="modal">
+    <ion-header-bar>
+        <h1 class="title">Second page</h1>
+        <div class="buttons">
+            <button class="button button-clear" ng-click="closeLogin()">Close</button>
+        </div>
+    </ion-header-bar>
+    <ion-content>
+        <form ng-submit="doPage2()" enctype="multipart/form-data" method="post">
+            <div class="list">
+                <label class="item item-input">
+                    <span class="input-label">Image</span>
+                    <input type="file" id="afile" name="afile" accept="image/*">
+                </label>
+
+                <label class="item">
+                    <button id="page2_submit" class="button button-block button-positive" type="submit">Submit</button>
+                </label>
+
+                <center class="item"><a role="button" class="button button-block button-negative" ng-click="previous()">previous</a></center>
+            </div>
+        </form>
+    </ion-content>
+</div>

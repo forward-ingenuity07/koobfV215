@@ -1,0 +1,46 @@
+﻿<div class="modal">
+    <ion-header-bar>
+        <h1 class="title">Book request</h1>
+        <div class="buttons">
+            <button class="button button-clear" ng-click="closeBookRequest()">Close</button>
+        </div>
+    </ion-header-bar>
+    <ion-content>
+        <form ng-submit="doBookRequest()">
+            <div class="list">
+                <label class="item item-input">
+                    <span class="input-label">Title</span>
+                    <input type="text" ng-model="BookRequestData.title">
+                </label>
+                <label class="item item-input">
+                    <span class="input-label">Module code</span>
+                    <input type="text" ng-model="BookRequestData.ModuleCode">
+                </label>
+                
+                <label class="item item-input">
+                    <span class="input-label">Faculty</span>
+                    <select id="faculty_chosen" style="max-width:150px;text-overflow:ellipsis">
+                        <option value="Economic and Management Sciences">Economic and Management Sciences</option>
+                        <option value="Education">Education</option>
+                        <option value="Engineering, Built Environment and IT">Engineering, Built Environment & IT</option>
+                        <option value="Health Sciences">Health Sciences</option>
+                        <option value="Humanities">Humanities</option>
+                        <option value="Law">Law</option>
+                        <option value="Natural and Agricultural Sciences">Natural & Agricultural Sciences</option>
+                        <option value="Theology">Theology</option>
+                        <option value="Vertinary Science">Vertinary Science</option>
+                    </select>
+                </label>
+                
+                <input type="radio" name="gender" value="1" checked>First year<br>
+                <input type="radio" name="gender" value="2">Second year<br>
+                <input type="radio" name="gender" value="3">Third year<br>
+                <input type="radio" name="gender" value="4">Fourth year<br />
+                <input type="radio" name="gender" value="Post">Post Graduate
+                                    <label class="item">
+                    <button class="button button-block button-positive" type="submit">Request Book!</button>
+                </label>
+            </div>
+        </form>
+    </ion-content>
+</div>

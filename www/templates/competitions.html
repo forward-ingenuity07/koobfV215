@@ -1,0 +1,167 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+  <head>
+		<title>Competition Sign Up LeadPage</title>
+        <meta charset="utf-8">
+        <meta name="format-detection"
+            content="telephone=no" />
+      
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta http-equiv="Content-Security-Policy" content="default-src *; style-src *  'unsafe-inline'; script-src *  'unsafe-inline'; media-src *">
+      <script src="../lib/ionic/js/ionic.bundle.js"></script>
+      <link href="../css/style_comp.css" rel="stylesheet" type="text/css">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<!--      <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    -->
+      <script src="../js/jquery-1.10.2.js"></script>
+      <script src="../js/jquery.countdown.min.js" type="text/javascript"></script>
+<!--
+      <script src="http://code.ionicframework.com/1.2.4/js/ionic.bundle.js"></script>
+
+      <script src="../js/angular.js"></script>
+
+      <script src="../js/html5shiv.js"></script>
+      <script src="../js/functions.js"></script>
+
+     
+<!--
+      <link href="../lib/ionic/css/ionic.css" rel="stylesheet">
+      <link href="../css/style.css" rel="stylesheet">
+      <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
+    <link href="css/ionic.app.css" rel="stylesheet">
+    -->
+      <!-- Ionic/AngularjsJS 
+
+<!--      <script src="../js/angular-sanitize.js"></script>
+      <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+           <script type="text/javascript" src="../js/lodash.underscore.min.js"></script>
+      <script type="text/javascript" src="js/angular-google-maps.min.js"></script>
+      <!-- Cordova Script (this will be a 404 during development) -->
+   <!--   <script src="cordova.js"></script>
+      <!-- Mobionic App's JS -->
+      <!--
+      <script type="text/javascript" src="js/pushwoosh-android.js"></script>
+      <script type="text/javascript" src="js/pushwoosh-ios.js"></script>
+          -->
+	</head>
+	<body ng-app="module">
+		<div id="fb-root"><p id="text" style="color:white;"></p></div>
+
+		<div class="page-container" style="z-index:100;">
+			<div class="section header" style="z-index:100;" data-name="Page Content" data-lead-id="competition-page_0_Page-Content_container">
+					
+                <div class="custom-background" data-name="Background Image" data-lead-id="competition-page_1_Background-Image_container">
+						<img data-name="Image" data-lead-id="competition-page_2_Image_background-image" src="img/background.png">
+					</div>
+					<div class="container">
+						<div class="row flexible">
+							<div data-name="Column 1" data-lead-id="competition-page_3_Column-1_container" class="col-md-6" ng-controller="controller">
+                                <center><a href="../index.html" style="z-index:100; color:white;"><i class="fa fa-home" aria-hidden="true"></i>Home</a></center>
+                                <h1 class="lora text-center" data-name="Title" data-lead-id="competition-page_6_Title_text">COMPETITIONS</h1>
+							
+								<div class="text-center">
+									<img data-name="Image" data-lead-id="competition-page_5_Image_image" src="{{image}}" alt="Internet connection error">
+								</div>
+                                <div class="padding-container">
+                                    <h1 class="lora" data-name="Title" data-lead-id="competition-page_6_Title_text">Enter for a chance to win a {{prize}}</h1>
+                                    <p data-name="Text" data-lead-id="competition-page_7_Text_text">{{instruction}}</p>
+                                </div>
+							</div>
+							<div data-name="Column 2" data-lead-id="competition-page_8_Column-2_container" class="col-md-6">
+								<div class="padding-container">
+									<div class="text-center logo desktop">
+										<img data-name="Logo" data-lead-id="competition-page_9_Logo_image" src="">
+									</div>
+									<h2 class="text-center lora" data-name="Title" data-lead-id="competition-page_10_Title_text">CONTEST ENDS IN</h2>
+									<div id="counting" class="counter" data-name="Countdown" data-lead-id="competition-page_11_Countdown_countdown">
+										<ul class="countdown flexible" id="countdown">
+											<li>
+												<div class="digit"><span class="days">05</span></div>
+											</li>
+											<li></li>
+											<li>
+												<div class="digit"><span class="hours">21</span></div>
+											</li>
+											<li></li>
+											<li>
+												<div class="digit"><span class="minutes">54</span></div>
+											</li>
+											<li></li>
+											<li>
+												<div class="digit"><span class="seconds">08</span></div>
+											</li>
+										</ul>
+									</div>
+									<div data-name="Countdown Labels" data-lead-id="competition-page_12_Countdown-Labels_container" class="counter">
+										<ul class="countdown">
+											<li>
+												<div class="text" data-name="Days" data-lead-id="competition-page_13_Days_text">Days</div>
+											</li>
+											<li></li>
+											<li>
+												<div class="text" data-name="Hours" data-lead-id="competition-page_14_Hours_text">Hours</div>
+											</li>
+											<li></li>
+											<li>
+												<div class="text" data-name="Minutes" data-lead-id="competition-page_15_Minutes_text">Minutes</div>
+											</li>
+											<li></li>
+											<li>
+												<div class="text" data-name="Seconds" data-lead-id="competition-page_16_Seconds_text">Seconds</div>
+											</li>
+										</ul>
+									</div>
+                                    <div ng-controller="button_controller">
+                                        
+                                            <h2 data-name="Subtitle #1" data-lead-id="competition-page_17_Subtitle-#1_text">1. Click below to enter competition {{win}}</h2>
+
+                                            <a role="button" class="lora btn btn-default btn-block btn-primary" ng-click="login()">I WANT TO WIN</a>
+
+                                            <h2 data-name="Subtitle #2" data-lead-id="competition-page_19_Subtitle-#2_text">2. Like us on Facebook</h2>
+                                        
+                                            </div>
+                                        <div class="row">
+										<div class="col-md-8">
+											<p data-name="Text" data-lead-id="competition-page_20_Text_text">so you don’t miss out on future contests.</p>
+										</div>
+										<div class="col-md-4">
+											<div class="like-button" data-name="Like Button" data-lead-id="competition-page_21_Like-Button_dynamic">
+                                                <a href="http://www.facebook.com/sweatbrand"><img src="../img/like-button.png"></a>
+											</div>
+										</div>
+									</div>				
+									<div class="divider" data-name="Divider" data-lead-id="competition-page_22_Divider_container"></div>		
+									<h2 data-name="Subtitle #3" data-lead-id="competition-page_23_Subtitle-#3_text">3. Click to share on social media</h2>
+									<p data-name="Text" data-lead-id="competition-page_24_Text_text">Each share gets you another entry!</p>
+									<ul class="social" data-name="Social" data-lead-id="competition-page_25_Social_container">
+										<li data-name="Facebook" data-lead-id="competition-page_26_Facebook_container">
+											<a class="share facebook" data-service="facebook" data-name="Facebook Share" data-lead-id="competition-page_27_Facebook-Share_dynamic" href="http://www.facebook.com/sweatbrand" target="_blank">
+												<i class="fa fa-facebook"></i>
+											</a>
+										</li>
+										<li data-name="Twitter" data-lead-id="competition-page_28_Twitter_container">
+                                            
+                                            <a class="share twitter" data-service="twitter" data-name="Twitter Share" data-lead-id="competition-page_29_Twitter-Share_dynamic" href="http://www.twitter.com/sweat_brand" target="_blank">
+												<i class="fa fa-twitter"></i>
+											</a>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+			</div>
+			<footer class="section footer" data-name="Footer" data-lead-id="competition-page_34_Footer_container">
+				<div class="container text-center">
+					<p data-name="Disclaimer" data-lead-id="competition-page_35_Disclaimer_text"><strong>Disclaimer:</strong> Terms and conditions may apply. All federal, state, or local taxes associated with this prize are solely the responsibility of the winner.</p>
+					<ul data-name="Fine Print" data-lead-id="competition-page_36_Fine-Print_container">
+						<li data-name="Copyright" data-lead-id="competition-page_37_Copyright_text">© 2017 Sweat Brand.</li>
+						<li data-name="Legal" data-lead-id="competition-page_38_Legal_text"><a href="#">Legal Information</a></li>
+					</ul>
+				</div>
+			</footer>
+		</div>
+        
+        <script src="../js/ajaxSend.js"></script>
+	</body>
+</html>
