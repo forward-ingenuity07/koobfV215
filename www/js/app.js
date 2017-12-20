@@ -35,7 +35,7 @@ angular.module('mobionicApp', ['ionic', 'mobionicApp.controllers', 'mobionicApp.
     // Initialize Push Notifications
     var initPushwoosh = function() {
         var pushNotification = window.plugins.pushNotification;
-
+      
 		if(device.platform == "Android") {
 			registerPushwooshAndroid();
 		}
@@ -50,7 +50,7 @@ angular.module('mobionicApp', ['ionic', 'mobionicApp.controllers', 'mobionicApp.
 
         // OneSignal Code start:
         // Enable to debug issues:
-        // window["plugins"].OneSignal.setLogLevel({logLevel: 4, visualLevel: 4});
+       //  window["plugins"].OneSignal.setLogLevel({logLevel: 4, visualLevel: 4});
 
         })
 })
