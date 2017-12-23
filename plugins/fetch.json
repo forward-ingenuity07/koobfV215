@@ -32,5 +32,14 @@
         },
         "is_top_level": false,
         "variables": {}
+    },
+    "onesignal-cordova-plugin": {
+        "source": {
+            "type": "git",
+            "url": "https://github.com/OneSignal/OneSignal-Cordova-SDK",
+            "subdir": "."
+        },
+        "is_top_level": true,
+        "variables": {}
     }
 }
