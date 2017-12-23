@@ -112,8 +112,7 @@ angular.module('mobionicApp.controllers', [])
     // Products Controller
 .controller('sellCtrl', function ($scope, $ionicModal, $ionicLoading, $http, $interval, ProductsData, ProductsStorage) {
 
-    window.localStorage.setItem("Logged_in","1");
-
+    
     if (window.localStorage.getItem("Logged_in") != "1") {
         // Create the login modal that we will use later
         $scope.modal.show();
@@ -693,6 +692,7 @@ angular.module('mobionicApp.controllers', [])
     
     $scope.resetNewsStorage = function() {
         NewsStorage.clear();
+        window.localStorage.clear();
     };
     
     $scope.resetProductsStorage = function() {
@@ -772,9 +772,13 @@ angular.module('mobionicApp.controllers', [])
         $scope.modal_sell.hide();
     }
   // Triggered in the login modal to close it
-  $scope.closeLogin = function() {
+    $scope.closeLogin = function () {
+       
       $scope.modal.hide();
       $scope.modal1.hide();
+        if(window.localStorage.getItem("Logged_in")!="1"){
+            location.replace("index.html");
+        }
   },
 
   // Open the login modal
@@ -860,7 +864,113 @@ angular.module('mobionicApp.controllers', [])
       
     }, 2000);
   };
+  
     
+
+  $scope.doSignup = function () {
+      console.log('Doing login', $scope.loginData);
+      $scope.loading = $ionicLoading.show({
+          template: '<i class="icon ion-loading-c"></i> Signing up',
+
+          //Will a dark overlay or backdrop cover the entire view
+          showBackdrop: false,
+
+          // The delay in showing the indicator
+          showDelay: 10
+      });
+
+      // Simulate a login delay. Remove this and replace with your login
+      // code if using a login system
+
+      $http({ method: 'GET', url: 'http://www.forwardingenuity.com/json_users.php' })
+          .then(function (response) {
+              for (var i = 0; i < response.data.length; i++) {
+                  if ($scope.signupData.email == response.data[i].email) {
+                     
+                      
+
+                      $timeout(function () {
+                          $ionicLoading.hide();
+                          var alertPopup = $ionicPopup.alert({
+                              title: 'Sign up',
+                              template: 'Email is already registered'
+                          });
+                          
+                      },2000)
+
+                      
+                      break;
+
+                  }
+                  else {
+                      if (i == response.data.length - 1) {
+                          var username = $scope.signupData.username;
+                          var email = $scope.signupData.email;
+                          var password = $scope.signupData.password;
+                          var dataString = "username=" + username + "&email=" + email + "&password=" + password + "&insert=";
+                          $.ajax({
+                              type: "POST",
+                              url: "http://forwardingenuity.com/phps/insert_user.php",
+                              data: dataString,
+                              crossDomain: true,
+                              cache: false,
+                              timeout: 2000,
+                              beforeSend: function () { $("#insert").text('connecting...'); },
+                              success: function (data) {
+                                  if (data == "success") {
+                                      //           alert("inserted");
+                                      window.localStorage.setItem("Logged_in", "1");
+                                      $timeout(function () {
+                                          $ionicLoading.hide();
+                                          var alertPopup = $ionicPopup.alert({
+                                              title: 'Sign up',
+                                              template: 'Sign up successful!'
+                                          });
+                                          $("#insert").text('Sign up');
+                                          $scope.closeLogin();
+
+                                      }, 2000)
+                                    }
+                                  else if (data == "error") {
+                                      $timeout(function () {
+                                          $ionicLoading.hide();
+                                          var alertPopup = $ionicPopup.alert({
+                                              title: 'Sign up',
+                                              template: 'Sign up unsuccessful :(. Please try again'
+                                          });
+                                          $("#insert").text('Sign up');
+                                          
+
+                                      }, 2000)
+                                  }
+                              },
+                              error: function (jqXHR, exception) {
+                                  $timeout(function () {
+                                      $ionicLoading.hide();
+                                      var alertPopup = $ionicPopup.alert({
+                                          title: 'Sign up',
+                                          template: 'Sign up unsuccessful. Please check internet connection.'
+                                      });
+                                      $("#insert").text('Sign up');
+
+
+                                  }, 2000)
+
+                              }
+                          });
+
+                      }
+                  }
+              }
+          })
+      .catch(function () {
+
+      })
+
+      
+  };
+
+
     // Triggered on a button click, or some other target
     $scope.show = function() {
 
