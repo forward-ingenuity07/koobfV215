@@ -783,7 +783,7 @@ angular.module('mobionicApp.controllers', [])
 
   // Open the login modal
   $scope.login = function() {
-    $scope.modal.show();
+    $scope.modal1.show();
   };
   $scope.newUser = function () {
       $scope.modal.hide();
