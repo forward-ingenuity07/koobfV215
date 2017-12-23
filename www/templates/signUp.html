@@ -10,18 +10,18 @@
             <div class="list">
                 <label class="item item-input">
                     <span class="input-label">Username</span>
-                    <input type="text">
+                    <input type="text" ng-model="signupData.username">
                 </label>
                 <label class="item item-input">
                     <span class="input-label">Email</span>
-                    <input type="email">
+                    <input type="email" ng-model="signupData.email">
                 </label>
                 <label class="item item-input">
                     <span class="input-label">Password</span>
-                    <input type="password">
+                    <input type="password" ng-model="signupData.password">
                 </label>
                 <label class="item">
-                    <button id="insert" class="button button-block button-positive" type="submit">Sign up</button>
+                    <button id="insert" name="insert" class="button button-block button-positive" type="submit">Sign up</button>
                 </label>
                 <center class="item"><a role="button" ng-click="backToLogin()">Login</a></center>
             </div>

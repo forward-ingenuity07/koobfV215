@@ -734,18 +734,20 @@ angular.module('mobionicApp.controllers', [])
   });
 
 
-    $ionicModal.fromTemplateUrl('templates/signup.html', {
-        id:'2',
-      scope: $scope
-  }).then(function (modal) {
-      $scope.modal1 = modal;
-  });
+    
 
     $ionicModal.fromTemplateUrl('templates/sell_modal.html', {
         id: '4',
         scope: $scope
     }).then(function (modal) {
         $scope.modal_sell = modal;
+    });
+
+    $ionicModal.fromTemplateUrl('templates/signup.html', {
+        id: 'Modal_signup',
+        scope: $scope
+    }).then(function (modal) {
+        $scope.modal1 = modal;
     });
 
     $ionicModal.fromTemplateUrl('templates/BookRequest.html', {
