@@ -1079,7 +1079,7 @@ angular.module('mobionicApp.controllers', [])
                         $("#request").text('Request Book!');
                         $scope.closeBookRequest()
                         
-                    }, 1500);
+                    }, 2000);
                 }
                 else if (data == "error") {
                     $timeout(function () {
