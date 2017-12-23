@@ -1055,7 +1055,7 @@ angular.module('mobionicApp.controllers', [])
         var e = document.getElementById("faculty_chosen");
         var faculty = e.options[e.selectedIndex].value;
         var year = $("input[name='year']:checked").val();
-        var user_id=window.localStorage.getItem("user_id");
+        var user_id=window.localStorage.getItem("id");
         var dataString = "title=" + title + "&code=" + code + "&faculty=" + faculty + "&year=" + year + "&user_id=" + user_id + "&insert=";
         $.ajax({
             type: "POST",
