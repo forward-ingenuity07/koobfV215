@@ -12,8 +12,8 @@ angular.module('mobionicApp.data', [])
             icon: 'ion-filing',
             note: 'Purchase books',
             url: '#/app/news',
-            color: '#478dff',
-            color2: '#4dff47'
+            color: 'blue'
+            
         },
         { 
             title: 'Sell items',
@@ -28,23 +28,23 @@ angular.module('mobionicApp.data', [])
             note: 'Find a place to stay',
             url: '#/app/products',
 
-            color:'#9DC68A',
-            color2: '#83AA45'
+            color:'yellow'
+          
         },
         { 
             title: 'Gadgets and more',
             icon: 'ion-ipad',
             note: 'Purchase items',
             url: '#/app/gallery',
-            color:'red'
+            color:'gray'
         },
         { 
             title: 'Tutors',
             icon: 'ion-university',
             note: 'Get academic help',
             url: '#/app/map',
-            color: '#f3ff16',
-            color2: '#c64343'
+            color: 'black',
+         
         },
         { 
             title: 'About',

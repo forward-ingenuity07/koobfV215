@@ -717,14 +717,14 @@ angular.module('mobionicApp.controllers', [])
     
 })
 
-.controller('AppCtrl', function($scope,$ionicLoading, $ionicModal, $timeout,$ionicPopup, MenuData,  $ionicActionSheet, $ionicPlatform) {
+.controller('AppCtrl', function ($scope, $ionicLoading, $ionicModal, $timeout, $ionicPopup, MenuData, $http, $ionicActionSheet, $ionicPlatform) {
    
   $scope.items = MenuData.items;
     $scope.profileMenu=MenuData.profileMenu;
   // Form data for the login modal
   $scope.loginData = {};
   $scope.SellData = {};
-    
+    $scope.signupData={};
   // Create the login modal that we will use later
     $ionicModal.fromTemplateUrl('templates/login.html', {
         id:'1',
@@ -773,19 +773,28 @@ angular.module('mobionicApp.controllers', [])
     }
   // Triggered in the login modal to close it
   $scope.closeLogin = function() {
-    $scope.modal.hide();
+      $scope.modal.hide();
+      $scope.modal1.hide();
   },
 
   // Open the login modal
   $scope.login = function() {
     $scope.modal.show();
   };
+  $scope.newUser = function () {
+      $scope.modal.hide();
+      $scope.modal1.show();
+  }
+  $scope.backToLogin = function () {
+      $scope.modal.show();
+      $scope.modal1.hide();
 
+  }
   // Perform the login action when the user submits the login form
   $scope.doLogin = function() {
       console.log('Doing login', $scope.loginData);
       $scope.loading = $ionicLoading.show({
-          template: '<i class="icon ion-loading-c"></i> Logging in',
+          template: '<i class="icon ion-loading-c"></i> Signing in',
 
           //Will a dark overlay or backdrop cover the entire view
           showBackdrop: false,
@@ -797,41 +806,59 @@ angular.module('mobionicApp.controllers', [])
     // Simulate a login delay. Remove this and replace with your login
       // code if using a login system
 
-
-      var title = $scope.BookRequestData.title;
-      var code = $scope.BookRequestData.ModuleCode;
-      var e = document.getElementById("faculty_chosen");
-      var faculty = e.options[e.selectedIndex].value;
-      var year = $("input[name='year']:checked").val();
-      var dataString = "title=" + title + "&code=" + code + "&faculty=" + faculty + "&year=" + year + "insert=";
-      $.ajax({
-          type: "POST",
-          url: "http://forwardingenuity.com/phps/book_requests.php",
-          data: dataString,
-          crossDomain: true,
-          cache: false,
-          timeout: 7000,
-          beforeSend: function () { $("#insert").text('Requesting...'); },
-          success: function (data) {
-              if (data == "success") {
-                  //           alert("inserted");
-                  window.localStorage.setItem("submitted_request", "1");
-              }
-              else if (data == "error") {
-                  window.localStorage.setItem("submitted_request", "0");
-              }
-          },
-          error: function (jqXHR, exception) {
-              window.localStorage.setItem("submitted_request", "3");
-
+      $http({ method: 'GET', url: 'http://www.forwardingenuity.com/json_users.php' })
+          .then(function (response) {
+          for (var i = 0; i < response.data.length;i++){
+              if ($scope.loginData.username == response.data[i].email) {
+                  if ($scope.loginData.password == response.data[i].password) {
+                     
+                      window.localStorage.setItem("Logged_in", "1");
+                      
+                      break;
+                  }
+                  else {
+                      window.localStorage.setItem("Logged_in", "0");
+                  }
+                  
           }
-      });
-
+              else {
+                  window.localStorage.setItem("Logged_in", "3");
+              }
+          }
+          })
+      .catch(function(){
+      
+})
 
       $timeout(function () {
+
           $scope.loading.hide();
-      $scope.closeLogin();
-    }, 1000);
+          if(window.localStorage.getItem("Logged_in")=="1"){
+          var alertPopup = $ionicPopup.alert({
+              title: 'Login',
+              template: 'Login successful'
+          });
+          }
+          else if (window.localStorage.getItem("Logged_in") == "3") {
+              var alertPopup = $ionicPopup.alert({
+                  title: 'Login',
+                  template: 'Email/Password combination is not valid'
+              });
+          }
+          else {
+              var alertPopup = $ionicPopup.alert({
+                  title: 'Login',
+                  template: 'Login error, please check network and try again'
+              });
+          }
+      }, 1000);
+
+      $timeout(function () {
+          if (window.localStorage.getItem("Logged_in") == "1") {
+              $scope.closeLogin();
+          }
+      
+    }, 2000);
   };
     
     // Triggered on a button click, or some other target
@@ -881,7 +908,8 @@ angular.module('mobionicApp.controllers', [])
         var e = document.getElementById("faculty_chosen");
         var faculty = e.options[e.selectedIndex].value;
         var year = $("input[name='year']:checked").val();
-        var dataString="title="+title+"&code="+code+"&faculty="+faculty+"&year="+year+"insert=";
+        var user_id=window.localStorage.getItem("user_id");
+        var dataString = "title=" + title + "&code=" + code + "&faculty=" + faculty + "&year=" + year + "&user_id=" + user_id + "&insert=";
         $.ajax({
             type: "POST",
             url: "http://forwardingenuity.com/phps/book_requests.php",
@@ -907,6 +935,7 @@ angular.module('mobionicApp.controllers', [])
         $timeout(function () {
             if (window.localStorage.getItem("submitted_request") == "1") {
                 $ionicLoading.hide();
+                
 
                 var myPopup = $ionicPopup.show({
                     template: 'Request sent successfully, we shall give you feedback soon :)',
