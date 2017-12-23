@@ -116,7 +116,7 @@ angular.module('mobionicApp.controllers', [])
     if (window.localStorage.getItem("Logged_in") != "1") {
         // Create the login modal that we will use later
         $scope.modal.show();
-        $scope.modal1.hide();
+
     }
     else {
         $scope.name = "User 1";
