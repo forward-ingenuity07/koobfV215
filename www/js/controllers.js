@@ -1062,49 +1062,52 @@ angular.module('mobionicApp.controllers', [])
             data: dataString,
             crossDomain: true,
             cache: false,
-            timeout: 7000,
-            beforeSend: function () { $("#insert").text('Requesting...'); },
+            timeout: 2000,
+            beforeSend: function () { $("#request").text('Requesting...'); },
             success: function (data) {
                 if (data == "success") {
                     //           alert("inserted");
-                    window.localStorage.setItem("submitted_request", "1");
+                    $timeout(function () {
+                        
+
+                        $scope.loading.hide();
+                        var alertPopup = $ionicPopup.alert({
+                            title: 'Book request',
+                            template: 'Request submitted, we hope to give you feedback soon!'
+                        });
+                        $("#request").text('Request Book!');
+                        $scope.closeBookRequest()
+                        
+                    }, 1500);
                 }
                 else if (data == "error") {
-                    window.localStorage.setItem("submitted_request", "0");
+                    $timeout(function () {
+
+
+                        $scope.loading.hide();
+                        var alertPopup = $ionicPopup.alert({
+                            title: 'Book request',
+                            template: 'Request not submitted, Please try again.'
+                        });
+                        $("#request").text('Request Book!');
+                    }, 1500);
                 }
             },
             error: function (jqXHR, exception) {
-                window.localStorage.setItem("submitted_request", "3");
+                $timeout(function () {
 
+
+                    $scope.loading.hide();
+                    var alertPopup = $ionicPopup.alert({
+                        title: 'Book request',
+                        template: 'Network error, please check connection and try again'
+                    });
+                    $("#request").text('Request Book!');
+
+                }, 1500);
             }
         });
-        $timeout(function () {
-            if (window.localStorage.getItem("submitted_request") == "1") {
-                $ionicLoading.hide();
-                
-
-                var myPopup = $ionicPopup.show({
-                    template: 'Request sent successfully, we shall give you feedback soon :)',
-                    scope: $scope,
-
-                    buttons: [
-                       { text: 'OK' }, {
-
-                           onTap: function (e) {
-
-                               if (!$scope.data.model) {
-                                   //don't allow the user to close unless he enters model...
-                                   e.preventDefault();
-                               } else {
-                                   return $scope.data.model;
-                               }
-                           }
-                       }
-                    ]
-                });
-
-            }
-        },2000)
+        
 
     }
     
