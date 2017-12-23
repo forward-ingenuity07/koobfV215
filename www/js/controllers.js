@@ -118,13 +118,24 @@ angular.module('mobionicApp.controllers', [])
         $scope.modal.show();
         $("#main").hide();
 
+        var promise = $interval(function () { 
+            if (window.localStorage.getItem("Logged_in") == "1") {
+                $scope.username = window.localStorage.getItem("username");
+                $("#main").show();
+                stop();
+            }
+
+
+        }, 500)
     }
     else {
-        $scope.name = "User 1";
+        $scope.username = window.localStorage.getItem("username");
         $("#main").show();
 
     }
-
+    function stop() {
+        $interval.cancel(promise);
+    }
 
 })
 
@@ -820,7 +831,9 @@ angular.module('mobionicApp.controllers', [])
                   if ($scope.loginData.password == response.data[i].password) {
                      
                       window.localStorage.setItem("Logged_in", "1");
-                      
+                      window.localStorage.setItem("email", response.data[i].email);
+                      window.localStorage.setItem("username", response.data[i].username);
+                      window.localStorage.setItem("id", response.data[i].id);
                       break;
                   }
                   else {
@@ -911,6 +924,8 @@ angular.module('mobionicApp.controllers', [])
                           var username = $scope.signupData.username;
                           var email = $scope.signupData.email;
                           var password = $scope.signupData.password;
+                          window.localStorage.setItem("email", email);
+                          window.localStorage.setItem("username", username);
                           var dataString = "username=" + username + "&email=" + email + "&password=" + password + "&insert=";
                           $.ajax({
                               type: "POST",
@@ -924,6 +939,22 @@ angular.module('mobionicApp.controllers', [])
                                   if (data == "success") {
                                       $("#main").show();
                                       //           alert("inserted");
+
+                                          $http({ method: 'GET', url: 'http://www.forwardingenuity.com/json_users.php' })
+                         .then(function (response) {
+                                 for (var i = 0; i < response.data.length; i++) {
+                                     if (window.localStorage.getItem("email") == response.data[i].email) {
+                                          window.localStorage.setItem("id", response.data[i].id);
+                                     }
+
+                                   }
+                                })
+                        .catch(function(){
+      
+                        })
+
+
+
                                       window.localStorage.setItem("Logged_in", "1");
                                       $timeout(function () {
                                           $ionicLoading.hide();

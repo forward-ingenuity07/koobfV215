@@ -1,4 +1,4 @@
-﻿<ion-view title="{{name}}" id="main">
+﻿<ion-view title="{{username}}" id="main">
     <ion-nav-buttons side="right">
         <button menu-toggle="right" class="button button-icon icon ion-navicon"></button>
     </ion-nav-buttons>
@@ -11,7 +11,7 @@
                     </md-card-avatar>
                 </center>
                 <md-card-header-text>
-                    <span class="md-title"><b>{{name}}</b></span>
+                    <span class="md-title"><b>{{username}}</b></span>
                     <span class="md-subhead"><i ng-repeat="number in getNumber(filled)" class="icon ion-ios-star"></i><i ng-repeat="number in getNumber(empty-filled)" class="icon ion-ios-star-outline"></i></span>
                 </md-card-header-text>
             </md-card-header>
