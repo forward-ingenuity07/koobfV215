@@ -726,7 +726,7 @@ angular.module('mobionicApp.controllers', [])
   $scope.SellData = {};
     $scope.signupData={};
   // Create the login modal that we will use later
-    $ionicModal.fromTemplateUrl('templates/login.html', {
+    $ionicModal.fromTemplateUrl('templates/signup.html', {
         id:'1',
     scope: $scope
   }).then(function(modal) {
