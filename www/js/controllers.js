@@ -839,7 +839,7 @@ angular.module('mobionicApp.controllers', [])
       var faculty = el.options[el.selectedIndex].value;
       var uploader = window.localStorage.getItem("id");
 
-      var dataString2 = "title=" + title + "&price=" + price + "&faculty=" + faculty + "&year=" + year + "&uploader=" + uploader + "&insert=";
+      var dataString2 = "title=" + title + "&price=" + price + "&faculty=" + faculty  + "&uploader=" + uploader + "&insert=";
       $.ajax({
           type: "POST",
           url: "http://www.forwardingenuity.com/insert_book1.php",
