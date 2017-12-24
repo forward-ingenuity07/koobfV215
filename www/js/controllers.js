@@ -173,30 +173,7 @@ angular.module('mobionicApp.controllers', [])
     function stop() {
         $interval.cancel(promise);
     }
-    $scope.update_ui=function() {
-        $scope.username = window.localStorage.getItem("username");
-        $("#main").show();
-        $http({ method: 'GET', url: 'http://www.forwardingenuity.com/phps/json_book.php' })
-      .then(function (response) {
-          var j = 0;
-          var book_uploads = [];
-          for (var i = 0; i < response.data.length; i++) {
-              if (window.localStorage.getItem("id") == response.data[i].uploader) {
-                  book_uploads[j] = response.data[i];
-                  j++;
-                  $scope.book_uploads = book_uploads;
-              }
-              else {
-
-              }
-          }
-      })
-
-  .catch(function () {
-
-  })
-
-    }
+    
 })
 
 // Product Controller
@@ -793,6 +770,8 @@ angular.module('mobionicApp.controllers', [])
 
 .controller('AppCtrl', function ($scope, $ionicLoading, $ionicModal, $timeout, $ionicPopup, MenuData, $http, $ionicActionSheet, $ionicPlatform) {
    
+
+
   $scope.items = MenuData.items;
     $scope.profileMenu=MenuData.profileMenu;
   // Form data for the login modal
@@ -808,7 +787,30 @@ angular.module('mobionicApp.controllers', [])
     $scope.modal = modal;
   });
 
+    $scope.update_ui = function () {
+        $scope.username = window.localStorage.getItem("username");
+        $("#main").show();
+        $http({ method: 'GET', url: 'http://www.forwardingenuity.com/phps/json_book.php' })
+      .then(function (response) {
+          var j = 0;
+          var book_uploads = [];
+          for (var i = 0; i < response.data.length; i++) {
+              if (window.localStorage.getItem("id") == response.data[i].uploader) {
+                  book_uploads[j] = response.data[i];
+                  j++;
+                  $scope.book_uploads = book_uploads;
+              }
+              else {
 
+              }
+          }
+      })
+
+  .catch(function () {
+
+  })
+
+    }
     
 
     $ionicModal.fromTemplateUrl('templates/sell_modal.html', {
@@ -911,6 +913,9 @@ angular.module('mobionicApp.controllers', [])
           success: function (data) {
               if (data == "success") {
                   //           alert("inserted");
+
+                  $scope.update_ui();
+
                   $timeout(function () {
 
 
@@ -920,7 +925,7 @@ angular.module('mobionicApp.controllers', [])
                           template: 'Upload successful! :)'
                       });
                       $("#insert_book").text('Submit');
-                      $scope.update_ui();
+                      
                       $scope.closeSell();
                       
 
