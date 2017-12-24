@@ -164,6 +164,7 @@ angular.module('mobionicApp.controllers', [])
               }
           }
       })
+        
   .catch(function () {
 
   })
@@ -172,7 +173,30 @@ angular.module('mobionicApp.controllers', [])
     function stop() {
         $interval.cancel(promise);
     }
+    function update_ui() {
+        $scope.username = window.localStorage.getItem("username");
+        $("#main").show();
+        $http({ method: 'GET', url: 'http://www.forwardingenuity.com/phps/json_book.php' })
+      .then(function (response) {
+          var j = 0;
+          var book_uploads = [];
+          for (var i = 0; i < response.data.length; i++) {
+              if (window.localStorage.getItem("id") == response.data[i].uploader) {
+                  book_uploads[j] = response.data[i];
+                  j++;
+                  $scope.book_uploads = book_uploads;
+              }
+              else {
 
+              }
+          }
+      })
+
+  .catch(function () {
+
+  })
+
+    }
 })
 
 // Product Controller
@@ -896,7 +920,8 @@ angular.module('mobionicApp.controllers', [])
                           template: 'Upload successful! :)'
                       });
                       $("#insert_book").text('Submit');
-                      $scope.closeSell()
+                      $scope.closeSell();
+                      update_ui();
 
                   }, 1500);
               }
