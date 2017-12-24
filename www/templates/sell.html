@@ -16,11 +16,11 @@
                 </md-card-header-text>
             </md-card-header>
             
-                <md-list-item class="md-3-line" ng-click="#" data-toggle="modal" data-target="#lightbox{{x.id}}">
+                <md-list-item class="md-3-line" ng-repeat="x in book_uploads" ng-click="#" data-toggle="modal" data-target="#lightbox">
                     <img src="car.jpg" class="md-avatar" />
                     <div class="md-list-item-text" layout="column">
-                        <p><b>Book1</b></p>
-                        <p>Faculty of engineering and built environment</p>
+                        <p><b>{{x.title}}</b></p>
+                        <p>{{x.faculty}}</p>
                         <!-- <p><i class="fa fa-tag fa"></i><i><span ng-repeat="tag in x.tags">{{tag}}{{$last ? '' : ', '}}</span></i></p>-->
                     </div>
                                 </md-list-item>
