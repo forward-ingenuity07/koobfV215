@@ -1,0 +1,46 @@
+﻿<div class="modal">
+    <ion-header-bar>
+        <h1 class="title">Sell</h1>
+        <div class="buttons">
+            <button class="button button-clear" ng-click="closeSell()">Close</button>
+        </div>
+    </ion-header-bar>
+
+    <ion-content>
+        <form ng-submit="Sell()">
+            <div class="list">
+                <label class="item item-input">
+                    <span class="input-label">Item name</span>
+                    <input type="text" ng-model="SellData.title">
+                </label>
+                <label class="item item-input">
+                    <span class="input-label">Price</span>
+                    <input type="number" ng-model="SellData.price">
+                </label>
+
+                <label class="item item-input">
+                    <span class="input-label">Category</span>
+                    <select id="category" style="max-width:150px;text-overflow:ellipsis">
+                        <option value="Electronics">Home appliances</option>
+                        <option value="Electronics">Electronics</option>
+                        <option value="Sports and outdoor">Sports and outdoor</option>
+                        <option value="Hobbies and interests">Hobbies and interests</option>
+                        <option value="Fashion and beauty">Fashion and beauty</option>
+                        <option value="Tools">Tools</option>
+                    </select>
+                </label>
+                <label class="item item-input">
+                    <span class="input-label">Additional info</span>
+                    <textarea type="number" ng-model="SellData.info"></textarea>
+                </label>
+                <label class="item item-input">
+                    <span class="input-label">Image</span>
+                    <input type="file" ng-model="SellData.price">
+                </label>
+                <label class="item">
+                    <button class="button button-block button-positive" type="submit">Submit</button>
+                </label>
+            </div>
+        </form>
+    </ion-content>
+</div>

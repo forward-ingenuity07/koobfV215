@@ -758,6 +758,13 @@ angular.module('mobionicApp.controllers', [])
         $scope.modal_sell = modal;
     });
 
+    $ionicModal.fromTemplateUrl('templates/sell_modal2.html', {
+        id: '7',
+        scope: $scope
+    }).then(function (modal) {
+        $scope.modal_sell2 = modal;
+    });
+
     $ionicModal.fromTemplateUrl('templates/signUp.html', {
         id: 'Modal_signup',
         scope: $scope
@@ -785,8 +792,13 @@ angular.module('mobionicApp.controllers', [])
         $scope.modal_sell.show();
 
     }
+    $scope.sell_modal2 = function () {
+        $scope.modal_sell2.show();
+
+    }
     $scope.closeSell = function () {
         $scope.modal_sell.hide();
+        $scope.modal_sell2.hide();
     }
   // Triggered in the login modal to close it
     $scope.closeLogin = function () {
@@ -1031,7 +1043,7 @@ angular.module('mobionicApp.controllers', [])
     };
    
     $scope.empty = 5;
-    $scope.filled = 1;
+    $scope.filled = 3;
     $scope.getNumber = function (num) {
         var arr = [];
         for (var i = 0; i < num; i++) {
@@ -1079,7 +1091,7 @@ angular.module('mobionicApp.controllers', [])
                         $("#request").text('Request Book!');
                         $scope.closeBookRequest()
                         
-                    }, 2000);
+                    }, 1500);
                 }
                 else if (data == "error") {
                     $timeout(function () {
