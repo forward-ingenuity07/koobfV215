@@ -842,7 +842,7 @@ angular.module('mobionicApp.controllers', [])
       var dataString2 = "title=" + title + "&price=" + price + "&faculty=" + faculty  + "&uploader=" + uploader + "&insert=";
       $.ajax({
           type: "POST",
-          url: "http://www.forwardingenuity.com/insert_book1.php",
+          url: "http://www.forwardingenuity.com/insert_book.php",
           data: dataString2,
           crossDomain: true,
           cache: false,
@@ -860,7 +860,7 @@ angular.module('mobionicApp.controllers', [])
                           template: 'Upload successful! :)'
                       });
                       $("#insert_book").text('Submit');
-                      $scope.closeBookRequest()
+                      $scope.closeSell()
 
                   }, 1500);
               }
