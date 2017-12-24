@@ -788,8 +788,6 @@ angular.module('mobionicApp.controllers', [])
   });
 
     $scope.update_ui = function () {
-        $scope.username = window.localStorage.getItem("username");
-        $("#main").show();
         $http({ method: 'GET', url: 'http://www.forwardingenuity.com/phps/json_book.php' })
       .then(function (response) {
           var j = 0;
@@ -927,7 +925,7 @@ angular.module('mobionicApp.controllers', [])
                       $("#insert_book").text('Submit');
                       
                       $scope.closeSell();
-                      
+                      $scope.update_ui();
 
                   }, 1500);
               }
@@ -941,6 +939,7 @@ angular.module('mobionicApp.controllers', [])
                           template: 'Upload unsuccessful, Please try again.'
                       });
                       $("#insert_book").text('Submit');
+                      $scope.update_ui();
                   }, 1500);
               }
           },
@@ -954,7 +953,7 @@ angular.module('mobionicApp.controllers', [])
                       template: 'Network error, please check connection and try again'
                   });
                   $("#insert_book").text('Submit');
-
+                  $scope.update_ui();
               }, 1500);
           }
       });
