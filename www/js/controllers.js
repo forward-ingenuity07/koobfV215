@@ -821,6 +821,81 @@ angular.module('mobionicApp.controllers', [])
       $scope.modal1.hide();
 
   }
+  $scope.Sell = function () {
+
+      $scope.loading = $ionicLoading.show({
+          template: '<i class="icon ion-loading-c"></i> Uploading...',
+
+          //Will a dark overlay or backdrop cover the entire view
+          showBackdrop: false,
+
+          // The delay in showing the indicator
+          showDelay: 10
+      });
+
+      var title = $scope.SellData.title;
+      var price = $scope.SellData.price;
+      var el = document.getElementById("faculty_chosen2");
+      var faculty = el.options[el.selectedIndex].value;
+      var uploader = window.localStorage.getItem("id");
+
+      var dataString2 = "title=" + title + "&price=" + price + "&faculty=" + faculty + "&year=" + year + "&uploader=" + uploader + "&insert=";
+      $.ajax({
+          type: "POST",
+          url: "http://www.forwardingenuity.com/insert_book1.php",
+          data: dataString2,
+          crossDomain: true,
+          cache: false,
+          timeout: 2000,
+          beforeSend: function () { $("#insert_book").text('Requesting...'); },
+          success: function (data) {
+              if (data == "success") {
+                  //           alert("inserted");
+                  $timeout(function () {
+
+
+                      $scope.loading.hide();
+                      var alertPopup = $ionicPopup.alert({
+                          title: 'Sell Book',
+                          template: 'Upload successful! :)'
+                      });
+                      $("#insert_book").text('Submit');
+                      $scope.closeBookRequest()
+
+                  }, 1500);
+              }
+              else if (data == "error") {
+                  $timeout(function () {
+
+
+                      $scope.loading.hide();
+                      var alertPopup = $ionicPopup.alert({
+                          title: 'Sell Book',
+                          template: 'Upload unsuccessful, Please try again.'
+                      });
+                      $("#insert_book").text('Submit');
+                  }, 1500);
+              }
+          },
+          error: function (jqXHR, exception) {
+              $timeout(function () {
+
+
+                  $scope.loading.hide();
+                  var alertPopup = $ionicPopup.alert({
+                      title: 'Sell Book',
+                      template: 'Network error, please check connection and try again'
+                  });
+                  $("#insert_book").text('Submit');
+
+              }, 1500);
+          }
+      });
+
+
+  }
+
+
   // Perform the login action when the user submits the login form
   $scope.doLogin = function() {
       console.log('Doing login', $scope.loginData);

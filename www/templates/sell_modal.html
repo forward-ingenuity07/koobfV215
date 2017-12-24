@@ -11,16 +11,16 @@
             <div class="list">
                 <label class="item item-input">
                     <span class="input-label">Title</span>
-                    <input type="text" ng-model="SellData.title">
+                    <input id="title" type="text" ng-model="SellData.title">
                 </label>
                 <label class="item item-input">
                     <span class="input-label">Price</span>
-                    <input type="number" ng-model="SellData.price">
+                    <input id="price" type="number" ng-model="SellData.price">
                 </label>
                 
                 <label class="item item-input">
                     <span class="input-label">Faculty</span>
-                    <select id="faculty_chosen" style="max-width:150px;text-overflow:ellipsis">
+                    <select id="faculty_chosen2" style="max-width:150px;text-overflow:ellipsis">
                         <option value="Economic and Management Sciences">Economic and Management Sciences</option>
                         <option value="Education">Education</option>
                         <option value="Engineering, Built Environment and IT">Engineering, Built Environment & IT</option>
@@ -44,7 +44,7 @@
                     <input type="file" ng-model="SellData.price">
                 </label>
                     <label class="item">
-                        <button class="button button-block button-positive" type="submit">Submit</button>
+                        <button id="insert_book" class="button button-block button-positive" type="submit">Submit</button>
                     </label>
 </div>
         </form>
