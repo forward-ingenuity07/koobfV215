@@ -173,7 +173,7 @@ angular.module('mobionicApp.controllers', [])
     function stop() {
         $interval.cancel(promise);
     }
-    function update_ui() {
+    $scope.update_ui=function() {
         $scope.username = window.localStorage.getItem("username");
         $("#main").show();
         $http({ method: 'GET', url: 'http://www.forwardingenuity.com/phps/json_book.php' })
@@ -920,8 +920,9 @@ angular.module('mobionicApp.controllers', [])
                           template: 'Upload successful! :)'
                       });
                       $("#insert_book").text('Submit');
+                      $scope.update_ui();
                       $scope.closeSell();
-                      update_ui();
+                      
 
                   }, 1500);
               }
