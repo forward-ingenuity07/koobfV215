@@ -138,7 +138,7 @@ angular.module('mobionicApp', ['ionic', 'mobionicApp.controllers', 'mobionicApp.
             views: {
                 'menuContent': {
                     templateUrl: "templates/sell.html",
-                    controller: 'AppCtrl'
+                    controller: 'sellCtrl'
                 }
             }
         })
