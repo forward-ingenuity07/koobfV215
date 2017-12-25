@@ -47,7 +47,7 @@ angular.module('mobionicApp.controllers', [])
 })
 
 // New Controller
-.controller('NewCtrl', function($scope, $ionicModal,$stateParams, NewsData) {
+.controller('NewCtrl', function($scope, $ionicModal,$stateParams, $ionicLoading, $timeout, NewsData) {
 
 
 
@@ -60,12 +60,33 @@ angular.module('mobionicApp.controllers', [])
 
     $scope.new = NewsData.get($stateParams.newId);
     $scope.book_contact = function (event) {
-       // $scope.modal_message.show();
-        alert(event.target.id);
+        window.localStorage.setItem("target_user", event.target.id);
+        window.localStorage.setItem("target_book", event.target.name);
+        $scope.Message_title = window.localStorage.getItem("target_book");
+
+        $scope.loading = $ionicLoading.show({
+          template: '<i class="icon ion-loading-c"></i> Loading...',
+
+          //Will a dark overlay or backdrop cover the entire view
+          showBackdrop: false,
+
+          // The delay in showing the indicator
+          showDelay: 10
+      });
+      //  $scope.modal_message.show();
+        $timeout(function () {
+            $scope.loading.hide();
+            $scope.modal_message.show();
+
+        },100)
+       
        
     }
     
-    
+    $scope.close_messages = function () {
+
+        $scope.modal_message.hide();
+    }
     
 })
 

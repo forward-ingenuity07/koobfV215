@@ -1,16 +1,13 @@
 ﻿<div class="modal">
     <ion-header-bar>
-        <h1 class="title">Messages</h1>
+        <h1 class="title">{{Message_title}}</h1>
         <div class="buttons">
-            <button class="button button-clear" ng-click="closeLogin()">Close</button>
+            <button class="button button-clear" ng-click="close_messages()">Close</button>
         </div>
     </ion-header-bar>
    
     <ion-content ion-content class="has-header">
         <ion-tabs class="tabs-icon-only">
-            <ion-tab title="Home" icon-on="ion-home" icon-off="ion-home">
-                <div class="padding"><strong>[Home]</strong> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
-            </ion-tab>
             <ion-tab title="Comments" icon-on="ion-chatboxes" icon-off="ion-chatboxes">
                 <ion-pane class="messaging-view">
 
@@ -44,6 +41,11 @@
                     </ion-footer-bar>
                 </ion-pane>
             </ion-tab>
+            
+            <ion-tab title="Home" icon-on="ion-home" icon-off="ion-home">
+                <div class="padding"><strong>[Home]</strong> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
+            </ion-tab>
+            
             <ion-tab title="Settings" icon-on="ion-gear-b" icon-off="ion-gear-b">
                 <div class="padding"><strong>[Settings]</strong> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
             </ion-tab>
