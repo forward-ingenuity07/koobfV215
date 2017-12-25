@@ -113,19 +113,6 @@ angular.module('mobionicApp.controllers', [])
 .controller('sellCtrl', function ($scope, $ionicModal, $ionicLoading, $http, $interval, ProductsData, ProductsStorage) {
 
     
-    if (window.localStorage.getItem("Logged_in") != "1") {
-        // Create the login modal that we will use later
-        $scope.modal.show();
-        $("#main").hide();
-
-    }
-    else {
-        
-        $("#main").show();
-        
-        
-    }
-    
     
 })
 
