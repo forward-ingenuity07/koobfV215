@@ -113,6 +113,66 @@ angular.module('mobionicApp.controllers', [])
 .controller('sellCtrl', function ($scope, $ionicModal, $ionicLoading, $http, $interval, ProductsData, ProductsStorage) {
 
     
+    if (window.localStorage.getItem("Logged_in") != "1") {
+        // Create the login modal that we will use later
+        $scope.modal.show();
+        $("#main").hide();
+
+        var promise = $interval(function () { 
+            if (window.localStorage.getItem("Logged_in") == "1") {
+                $scope.username = window.localStorage.getItem("username");
+                $("#main").show();
+                $http({ method: 'GET', url: 'http://www.forwardingenuity.com/phps/json_book.php' })
+     .then(function (response) {
+         var j = 0;
+         var book_uploads = [];
+         for (var i = 0; i < response.data.length; i++) {
+             if (window.localStorage.getItem("id") == response.data[i].uploader) {
+                 book_uploads[j] = response.data[i];
+                 j++;
+                 $scope.book_uploads = book_uploads;
+             }
+             else {
+
+             }
+         }
+     })
+ .catch(function () {
+
+ })
+                stop();
+            }
+
+
+        }, 500)
+    }
+    else {
+        $scope.username = window.localStorage.getItem("username");
+        $("#main").show();
+        $http({ method: 'GET', url: 'http://www.forwardingenuity.com/phps/json_book.php' })
+      .then(function (response) {
+          var j=0;
+          var book_uploads=[];
+          for (var i = 0; i < response.data.length; i++) {
+              if (window.localStorage.getItem("id") == response.data[i].uploader) {
+                 book_uploads[j]=response.data[i];
+                 j++;
+                 $scope.book_uploads = book_uploads;
+              }
+              else {
+
+              }
+          }
+      })
+        
+  .catch(function () {
+
+  })
+        
+    }
+    function stop() {
+        $interval.cancel(promise);
+    }
     
 })
 
@@ -1239,68 +1299,6 @@ angular.module('mobionicApp.controllers', [])
     );
     
 
-
-
-    if (window.localStorage.getItem("Logged_in") != "1") {
-        // Create the login modal that we will use later
-        $scope.modal.show();
-        $("#main").hide();
-
-        var promise = $interval(function () {
-            if (window.localStorage.getItem("Logged_in") == "1") {
-                $scope.username = window.localStorage.getItem("username");
-                $("#main").show();
-                $http({ method: 'GET', url: 'http://www.forwardingenuity.com/phps/json_book.php' })
-     .then(function (response) {
-         var j = 0;
-         var book_uploads = [];
-         for (var i = 0; i < response.data.length; i++) {
-             if (window.localStorage.getItem("id") == response.data[i].uploader) {
-                 book_uploads[j] = response.data[i];
-                 j++;
-                 $scope.book_uploads = book_uploads;
-             }
-             else {
-
-             }
-         }
-     })
- .catch(function () {
-
- })
-                stop();
-            }
-
-
-        }, 500)
-    }
-    else {
-        $scope.username = window.localStorage.getItem("username");
-        $("#main").show();
-        $http({ method: 'GET', url: 'http://www.forwardingenuity.com/phps/json_book.php' })
-      .then(function (response) {
-          var j = 0;
-          var book_uploads = [];
-          for (var i = 0; i < response.data.length; i++) {
-              if (window.localStorage.getItem("id") == response.data[i].uploader) {
-                  book_uploads[j] = response.data[i];
-                  j++;
-                  $scope.book_uploads = book_uploads;
-              }
-              else {
-
-              }
-          }
-      })
-
-  .catch(function () {
-
-  })
-
-    }
-    function stop() {
-        $interval.cancel(promise);
-    }
 
 
 })
