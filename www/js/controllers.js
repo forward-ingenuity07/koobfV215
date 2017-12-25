@@ -921,10 +921,7 @@ angular.module('mobionicApp.controllers', [])
                       var alertPopup = $ionicPopup.alert({
                           title: 'Sell Book',
                           template: 'Upload successful! :)'
-                      })
-                      .then(function () {
-                          location.reload();
-                      })
+                      });
                       $("#insert_book").text('Submit');
                       
                       $scope.closeSell();
