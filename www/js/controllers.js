@@ -50,6 +50,9 @@ angular.module('mobionicApp.controllers', [])
 .controller('NewCtrl', function($scope, $stateParams, NewsData) {
 
     $scope.new = NewsData.get($stateParams.newId);
+    $scope.hello = function () {
+        alert("pressed");
+    }
     
 })
 

@@ -6,8 +6,19 @@
         <div class="padding">
         <h2 class="title">{{new.title}}</h2>
         <p>R{{new.price}}</p>
-        <p><i class="icon ion-pricetags"></i> <span>{{new.faculty}}</span></p>
-        </div>
 
+        <p><i class="icon ion-pricetags"></i> <span>{{new.faculty}}</span></p>
+            
+                <md-list-item class="md-3-line" ng-click="hello()" data-toggle="modal" data-target="#lightbox">
+                    <img src="comment2.png" class="md-avatar" />
+                </md-list-item>
+            
+</div>
+
+
+        <!--<md-button class="md-fab" ng-disabled="true" aria-label="Comment">
+            <md-icon md-svg-src="img/icons/ic_comment_24px.svg"></md-icon>
+        </md-button>
+            -->
     </ion-content>
 </ion-view>
