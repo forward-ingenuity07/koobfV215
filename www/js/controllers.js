@@ -47,12 +47,23 @@ angular.module('mobionicApp.controllers', [])
 })
 
 // New Controller
-.controller('NewCtrl', function($scope, $stateParams, NewsData) {
+.controller('NewCtrl', function($scope, $ionicModal,$stateParams, NewsData) {
+
+
+
+    $ionicModal.fromTemplateUrl('templates/tabs2.html', {
+        id: 'messages',
+        scope: $scope
+    }).then(function (modal) {
+        $scope.modal_message = modal;
+    });
 
     $scope.new = NewsData.get($stateParams.newId);
     $scope.book_contact = function () {
-        location.href='templates/tabs.html';
+        $scope.modal_message.show();
     }
+
+
     
 })
 
