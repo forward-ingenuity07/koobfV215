@@ -113,6 +113,19 @@ angular.module('mobionicApp.controllers', [])
 .controller('sellCtrl', function ($scope, $ionicModal, $ionicLoading, $http, $interval, ProductsData, ProductsStorage) {
 
     
+    if (window.localStorage.getItem("Logged_in") != "1") {
+        // Create the login modal that we will use later
+        $scope.modal.show();
+        $("#main").hide();
+
+    }
+    else {
+        
+        $("#main").show();
+        
+        
+    }
+    
     
 })
 
@@ -1206,6 +1219,41 @@ angular.module('mobionicApp.controllers', [])
     }
     
 
+
+})
+
+// Feed Plugin Categories Controller
+.controller('FeedPluginCategoriesCtrl', function($scope, $ionicLoading, FeedPluginData) {
+    
+    $scope.categories = [];
+    
+    $scope.loading = $ionicLoading.show({
+      template: '<i class="icon ion-loading-c"></i> Loading Data',
+
+      //Will a dark overlay or backdrop cover the entire view
+      showBackdrop: false,
+        
+      // The delay in showing the indicator
+      showDelay: 10
+    });
+    
+    FeedPluginData.asyncCategories().then(
+        // successCallback
+        function() {
+            $scope.categories = FeedPluginData.getCategories();
+            $ionicLoading.hide();
+        },
+        // errorCallback 
+        function() {
+            $ionicLoading.hide();
+        },
+        // notifyCallback
+        function() {}
+    );
+    
+
+
+
     if (window.localStorage.getItem("Logged_in") != "1") {
         // Create the login modal that we will use later
         $scope.modal.show();
@@ -1268,37 +1316,6 @@ angular.module('mobionicApp.controllers', [])
     }
 
 
-})
-
-// Feed Plugin Categories Controller
-.controller('FeedPluginCategoriesCtrl', function($scope, $ionicLoading, FeedPluginData) {
-    
-    $scope.categories = [];
-    
-    $scope.loading = $ionicLoading.show({
-      template: '<i class="icon ion-loading-c"></i> Loading Data',
-
-      //Will a dark overlay or backdrop cover the entire view
-      showBackdrop: false,
-        
-      // The delay in showing the indicator
-      showDelay: 10
-    });
-    
-    FeedPluginData.asyncCategories().then(
-        // successCallback
-        function() {
-            $scope.categories = FeedPluginData.getCategories();
-            $ionicLoading.hide();
-        },
-        // errorCallback 
-        function() {
-            $ionicLoading.hide();
-        },
-        // notifyCallback
-        function() {}
-    );
-    
 })
 
 // Feed Plugin Category Controller
