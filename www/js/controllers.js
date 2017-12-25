@@ -47,7 +47,7 @@ angular.module('mobionicApp.controllers', [])
 })
 
 // New Controller
-.controller('NewCtrl', function($scope, $ionicModal,$stateParams, $ionicLoading, $timeout, NewsData) {
+.controller('NewCtrl', function($scope, $ionicModal,$stateParams, $ionicLoading, $timeout, $ionicScrollDelegate, NewsData) {
 
 
 
@@ -88,6 +88,90 @@ angular.module('mobionicApp.controllers', [])
         $scope.modal_message.hide();
     }
     
+
+   
+
+        $scope.hideTime = true;
+
+        var alternate,
+          isIOS = ionic.Platform.isWebView() && ionic.Platform.isIOS();
+
+        $scope.sendMessage = function () {
+            alternate = !alternate;
+
+
+
+            var d = new Date();
+            d = d.toLocaleTimeString().replace(/:\d+ /, ' ');
+         //   var user_id = window.localStorage.getItem("user_id");
+            var message = $scope.data.message;
+            if (window.localStorage.getItem("messages") != null) {
+                var messages = [];
+                messages = JSON.parse(window.localStorage.getItem("messages"));
+                messages[messages.length] = message;
+                window.localStorage.setItem("messages", JSON.stringify(messages));
+            }
+/*            var dataStr = "name=" + window.localStorage.getItem("Name") + "&user_id=" + user_id + "&message=" + message;
+            var url3 = "http://www.sweatbrand.forwardingenuity.com/message_sent.php"
+            $.ajax({
+                type: "POST",                                           //method
+                url: url3,     //url   
+                data: dataStr,                                       //data sent as concatinated string
+                crossDomain: true,
+                cache: false,
+                timeout: 5000,
+                success: function (data) {
+                    if (data == "success") {
+                        window.localStorage.setItem("message_sent", "1");
+                    }
+                    else if (data == "error") {
+                        window.localStorage.setItem("message_sent", "0");
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    window.localStorage.setItem("signed_up", "3");
+                }
+
+            });
+            */
+            $scope.messages.push({
+                userId: alternate ? '12345' : '54321',
+                text: $scope.data.message,
+                time: d
+            });
+
+            delete $scope.data.message;
+            $ionicScrollDelegate.scrollBottom(true);
+
+        };
+
+
+        $scope.inputUp = function () {
+            if (isIOS) $scope.data.keyboardHeight = 216;
+            $timeout(function () {
+                $ionicScrollDelegate.scrollBottom(true);
+            }, 300);
+
+        };
+
+        $scope.inputDown = function () {
+            if (isIOS) $scope.data.keyboardHeight = 0;
+            $ionicScrollDelegate.resize();
+        };
+
+        $scope.closeKeyboard = function () {
+            // cordova.plugins.Keyboard.close();
+        };
+
+
+        $scope.data = {};
+        $scope.myId = '12345';
+        $scope.messages = [];
+
+   
+
+
+
 })
 
 // Products Controller
