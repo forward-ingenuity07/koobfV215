@@ -59,11 +59,13 @@ angular.module('mobionicApp.controllers', [])
     });
 
     $scope.new = NewsData.get($stateParams.newId);
-    $scope.book_contact = function () {
-        $scope.modal_message.show();
+    $scope.book_contact = function (event) {
+       // $scope.modal_message.show();
+        alert(event.target.id);
+       
     }
-
-
+    
+    
     
 })
 
