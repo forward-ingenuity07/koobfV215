@@ -49,6 +49,9 @@ angular.module('mobionicApp', ['ionic', 'mobionicApp.controllers', 'mobionicApp.
     
 
         // OneSignal Code start:
+
+
+
         // Enable to debug issues:
        //  window["plugins"].OneSignal.setLogLevel({logLevel: 4, visualLevel: 4});
 
