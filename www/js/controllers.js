@@ -46,6 +46,45 @@ angular.module('mobionicApp.controllers', [])
 
 })
 
+    .directive('input', function ($timeout) {
+        return {
+            restrict: 'E',
+            scope: {
+                'returnClose': '=',
+                'onReturn': '&',
+                'onFocus': '&',
+                'onBlur': '&'
+            },
+            link: function (scope, element, attr) {
+                element.bind('focus', function (e) {
+                    if (scope.onFocus) {
+                        $timeout(function () {
+                            scope.onFocus();
+                        });
+                    }
+                });
+                element.bind('blur', function (e) {
+                    if (scope.onBlur) {
+                        $timeout(function () {
+                            scope.onBlur();
+                        });
+                    }
+                });
+                element.bind('keydown', function (e) {
+                    if (e.which == 13) {
+                        if (scope.returnClose) element[0].blur();
+                        if (scope.onReturn) {
+                            $timeout(function () {
+                                scope.onReturn();
+                            });
+                        }
+                    }
+                });
+            }
+        }
+    })
+
+
 // New Controller
 .controller('NewCtrl', function($scope, $ionicModal,$stateParams, $ionicLoading, $timeout, $ionicScrollDelegate, NewsData) {
 
@@ -97,6 +136,8 @@ angular.module('mobionicApp.controllers', [])
           isIOS = ionic.Platform.isWebView() && ionic.Platform.isIOS();
 
         $scope.sendMessage = function () {
+            if ($("#in_message").val() != '') {
+
             alternate = !alternate;
 
 
@@ -134,6 +175,7 @@ angular.module('mobionicApp.controllers', [])
 
             });
             */
+            
             $scope.messages.push({
                 userId: alternate ? '12345' : '54321',
                 text: $scope.data.message,
@@ -142,8 +184,9 @@ angular.module('mobionicApp.controllers', [])
 
             delete $scope.data.message;
             $ionicScrollDelegate.scrollBottom(true);
-
-        };
+            }
+            }
+       
 
 
         $scope.inputUp = function () {
