@@ -50,7 +50,14 @@ angular.module('mobionicApp', ['ionic', 'mobionicApp.controllers', 'mobionicApp.
 
         // OneSignal Code start:
 
+    var notificationOpenedCallback = function (jsonData) {
+        console.log('notificationOpenedCallback: ' + JSON.stringify(jsonData));
+    };
 
+    window.plugins.OneSignal
+      .startInit("f726f088-5d47-42e1-bf68-6c293302ecb3")
+      .handleNotificationOpened(notificationOpenedCallback)
+      .endInit();
 
         // Enable to debug issues:
        //  window["plugins"].OneSignal.setLogLevel({logLevel: 4, visualLevel: 4});
