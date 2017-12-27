@@ -1270,11 +1270,8 @@ angular.module('mobionicApp.controllers', [])
                         .catch(function(){
       
                         })
+                                          window.plugins.OneSignal.sendTag("email", window.localStorage.getItem("email"));
 
-                                          window.plugins.OneSignal
-                                    .startInit("f726f088-5d47-42e1-bf68-6c293302ecb3")
-                                    .handleNotificationOpened(notificationOpenedCallback)
-                                    .endInit();
 
                                       window.localStorage.setItem("Logged_in", "1");
                                       $timeout(function () {
