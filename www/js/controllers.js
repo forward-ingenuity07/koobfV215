@@ -136,8 +136,7 @@ angular.module('mobionicApp.controllers', [])
           isIOS = ionic.Platform.isWebView() && ionic.Platform.isIOS();
 
         $scope.sendMessage = function () {
-            if ($("#in_message").val() != '') {
-
+            
             alternate = !alternate;
 
 
@@ -184,7 +183,7 @@ angular.module('mobionicApp.controllers', [])
 
             delete $scope.data.message;
             $ionicScrollDelegate.scrollBottom(true);
-            }
+            
             }
        
 
