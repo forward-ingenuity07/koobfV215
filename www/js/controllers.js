@@ -145,6 +145,7 @@ angular.module('mobionicApp.controllers', [])
             d = d.toLocaleTimeString().replace(/:\d+ /, ' ');
          //   var user_id = window.localStorage.getItem("user_id");
             var message = $scope.data.message;
+           
             if (window.localStorage.getItem("messages") != null) {
                 var messages = [];
                 messages = JSON.parse(window.localStorage.getItem("messages"));
