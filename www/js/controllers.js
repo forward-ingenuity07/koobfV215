@@ -1152,6 +1152,7 @@ angular.module('mobionicApp.controllers', [])
                       window.localStorage.setItem("email", response.data[i].email);
                       window.localStorage.setItem("username", response.data[i].username);
                       window.localStorage.setItem("id", response.data[i].id);
+                      window.plugins.OneSignal.sendTag("email", window.localStorage.getItem("email"));
                       break;
                   }
                   else {
