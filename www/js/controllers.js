@@ -86,7 +86,7 @@ angular.module('mobionicApp.controllers', [])
 
 
 // New Controller
-.controller('NewCtrl', function($scope, $ionicModal,$stateParams, $ionicLoading, $timeout, $ionicScrollDelegate, NewsData) {
+.controller('NewCtrl', function($scope, $http, $ionicModal,$stateParams, $ionicLoading, $timeout, $ionicScrollDelegate, NewsData) {
 
 
 
