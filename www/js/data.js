@@ -121,21 +121,10 @@ angular.module('mobionicApp.data', [])
             icon: 'ion-drag',
             url: '#/app/tabs'
         },
-        { 
-            title: 'Grid',
-            icon: 'ion-grid',
-            url: '#/app/grid'
-        },
-        { 
-            title: 'Profile',
-            icon: 'ion-person',
-            url: '../CRM/chating1.html'
-
-        },
-        { 
-            title: 'RSS (Pull to refresh)',
-            icon: 'ion-social-rss',
-            url: '#/app/feeds-refresher'
+        {
+            title: 'Messages',
+            icon: 'ion-chatbubble',
+            url: '#/app/messages'
         }
     ]; 
     

@@ -406,6 +406,15 @@ angular.module('mobionicApp', ['ionic', 'mobionicApp.controllers', 'mobionicApp.
         }
       }
     })
+      .state('app.messages', {
+          url: "/messages",
+          views: {
+              'menuContent': {
+                  templateUrl: "templates/messages.html",
+                  controller:'messagesCtrl'
+              }
+          }
+      })
 
     .state('app.settings', {
       url: "/settings",

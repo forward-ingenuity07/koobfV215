@@ -101,6 +101,7 @@ angular.module('mobionicApp.controllers', [])
     $scope.book_contact = function (event) {
         window.localStorage.setItem("target_user", event.target.id);
         window.localStorage.setItem("target_book", event.target.name);
+        
         $scope.Message_title = window.localStorage.getItem("target_book");
 
         $scope.loading = $ionicLoading.show({
@@ -148,6 +149,46 @@ angular.module('mobionicApp.controllers', [])
                 messages[messages.length] = message;
                 window.localStorage.setItem("messages", JSON.stringify(messages));
             }
+
+
+
+            if (window.localStorage.getItem("contacted") != null) {
+
+                var contacted = [];
+                contacted = JSON.parse(window.localStorage.getItem("contacted"));
+                for (var i = 0; i < contacted.length; i++) {
+                    if (window.localStorage.getItem("target_user") == contacted[i].id) {
+                        break;
+
+                    }
+                    if ((i == contacted.length - 1) && (window.localStorage.getItem("target_user") != contacted[i].id)) {
+                        var contacted = [];
+
+                        contacted[contacted.length] = {
+                            id: window.localStorage.getItem("target_user"),
+                            title: window.localStorage.getItem("target_book")
+                        }
+
+                        window.localStorage.setItem("contacted", JSON.stringify(contacted));
+                    }
+
+                }
+
+
+            }
+
+            else {
+                var contacted = [];
+                contacted[0] = {
+                    id: window.localStorage.getItem("target_user"),
+                    title: window.localStorage.getItem("target_book")
+                }
+                window.localStorage.setItem("contacted", JSON.stringify(contacted));
+            }
+
+
+
+
 
             var dataStr = "party1=" + window.localStorage.getItem("id") + "&party2=" + window.localStorage.getItem("target_user") + "&message=" + message + "&time=" + d;
             var url3 = "http://www.forwardingenuity.com/ins_message.php";
@@ -369,6 +410,24 @@ angular.module('mobionicApp.controllers', [])
     $scope.product = ProductsData.get($stateParams.productId);
     
 })
+
+    .controller('messagesCtrl', function ($scope, $http) {
+        $scope.contacted = JSON.parse(window.localStorage.getItem("contacted"));
+
+        var url_messages = "http://www.forwardingenuity.com/messages.php";
+        $http({ method: 'GET', url: url_messages, timeout: 5000 }).
+         // this callback will be called asynchronously
+         // when the response is available.
+         success(function (data) {
+            
+         }).
+         // called asynchronously if an error occurs
+         // or server returns response with an error status.
+         error(function () {
+
+         });
+    })
+
 
 // Gallery Controller
 .controller('GalleryCtrl', function($scope, GalleryData) {
@@ -1099,8 +1158,12 @@ angular.module('mobionicApp.controllers', [])
               if (data == "success") {
                   //           alert("inserted");
 
-                  $scope.update_ui();
-
+               //   $scope.update_ui();
+                  $scope.book_uploads.push({
+                      title: title,
+                      price: price,
+                      faculty:faculty
+                  })
                   $timeout(function () {
 
 
@@ -1112,7 +1175,7 @@ angular.module('mobionicApp.controllers', [])
                       $("#insert_book").text('Submit');
                       
                       $scope.closeSell();
-                      $scope.update_ui();
+                 //     $scope.update_ui();
 
                   }, 1500);
               }
@@ -1126,7 +1189,7 @@ angular.module('mobionicApp.controllers', [])
                           template: 'Upload unsuccessful, Please try again.'
                       });
                       $("#insert_book").text('Submit');
-                      $scope.update_ui();
+                   //   $scope.update_ui();
                   }, 1500);
               }
           },
