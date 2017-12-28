@@ -141,7 +141,7 @@ angular.module('mobionicApp.controllers', [])
             d = d.toLocaleTimeString().replace(/:\d+ /, ' ');
          //   var user_id = window.localStorage.getItem("user_id");
             var message = $scope.data.message;
-           
+            
             if (window.localStorage.getItem("messages") != null) {
                 var messages = [];
                 messages = JSON.parse(window.localStorage.getItem("messages"));
@@ -149,7 +149,7 @@ angular.module('mobionicApp.controllers', [])
                 window.localStorage.setItem("messages", JSON.stringify(messages));
             }
 
-            var dataStr = "party1=" + window.localStorage.getItem("id") + "&party2=" + window.localStorage.getItem("target_user") + "&message=" + message;
+            var dataStr = "party1=" + window.localStorage.getItem("id") + "&party2=" + window.localStorage.getItem("target_user") + "&message=" + message + "&time=" + d;
             var url3 = "http://www.forwardingenuity.com/ins_message.php";
             $.ajax({
                 type: "POST",                                           //method
