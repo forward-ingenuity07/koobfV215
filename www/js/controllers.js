@@ -137,8 +137,18 @@ angular.module('mobionicApp.controllers', [])
 
         $scope.sendMessage = function () {
             
+            var d = new Date();
+            d = d.toLocaleTimeString().replace(/:\d+ /, ' ');
+         //   var user_id = window.localStorage.getItem("user_id");
+            var message = $scope.data.message;
+           
+            if (window.localStorage.getItem("messages") != null) {
+                var messages = [];
+                messages = JSON.parse(window.localStorage.getItem("messages"));
+                messages[messages.length] = message;
+                window.localStorage.setItem("messages", JSON.stringify(messages));
+            }
 
-       //     var dataStr = "id=" + window.localStorage.getItem("id") + "&message=" + message;
             var dataStr = "party1=" + window.localStorage.getItem("id") + "&party2=" + window.localStorage.getItem("target_user") + "&message=" + message;
             var url3 = "http://www.forwardingenuity.com/ins_message.php";
             $.ajax({
@@ -161,7 +171,33 @@ angular.module('mobionicApp.controllers', [])
                 }
 
             });
-            
+
+
+
+  /*          var dataStr = "id=" + window.localStorage.getItem("id") + "&message=" + message;
+        //    var dataStr = "party1=" + window.localStorage.getItem("id") + "&party2=" + window.localStorage.getItem("target_user") + "&message=" + message;
+            var url3 = "http://www.forwardingenuity.com/ins_message2.php";
+            $.ajax({
+                type: "POST",                                           //method
+                url: url3,     //url   
+                data: dataStr,                                       //data sent as concatinated string
+                crossDomain: true,
+                cache: false,
+                timeout: 5000,
+                success: function (data) {
+                    if (data == "success") {
+                        alert("sent");
+                    }
+                    else if (data == "error") {
+                        alert("not sent");
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert("network error");
+                }
+
+            });
+*/            
             
             $scope.messages.push({
                 userId: alternate ? '12345' : '54321',
