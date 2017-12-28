@@ -159,14 +159,14 @@ angular.module('mobionicApp.controllers', [])
                 timeout: 5000,
                 success: function (data) {
                     if (data == "success") {
-                        window.localStorage.setItem("message_sent", "1");
+                        alert("sent");
                     }
                     else if (data == "error") {
-                        window.localStorage.setItem("message_sent", "0");
+                        alert("not sent");
                     }
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
-                    window.localStorage.setItem("message_sent", "3");
+                    alert("network error");
                 }
 
             });
