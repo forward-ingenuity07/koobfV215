@@ -137,8 +137,7 @@ angular.module('mobionicApp.controllers', [])
 
         $scope.sendMessage = function () {
             
-            alternate = !alternate;
-
+            
 
 
             var d = new Date();
@@ -152,8 +151,8 @@ angular.module('mobionicApp.controllers', [])
                 messages[messages.length] = message;
                 window.localStorage.setItem("messages", JSON.stringify(messages));
             }
-/*            var dataStr = "name=" + window.localStorage.getItem("Name") + "&user_id=" + user_id + "&message=" + message;
-            var url3 = "http://www.sweatbrand.forwardingenuity.com/message_sent.php"
+            var dataStr = "name=" + window.localStorage.getItem("Name") + "&user_id=" + user_id + "&message=" + message;
+            var url3 = "http://www.forwardingenuity.com/ins_message.php"
             $.ajax({
                 type: "POST",                                           //method
                 url: url3,     //url   
@@ -170,11 +169,11 @@ angular.module('mobionicApp.controllers', [])
                     }
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
-                    window.localStorage.setItem("signed_up", "3");
+                    window.localStorage.setItem("message_sent", "3");
                 }
 
             });
-            */
+            
             
             $scope.messages.push({
                 userId: alternate ? '12345' : '54321',
