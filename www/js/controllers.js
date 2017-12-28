@@ -151,7 +151,7 @@ angular.module('mobionicApp.controllers', [])
                 messages[messages.length] = message;
                 window.localStorage.setItem("messages", JSON.stringify(messages));
             }
-            var dataStr = "name=" + window.localStorage.getItem("Name") + "&user_id=" + user_id + "&message=" + message;
+            var dataStr = "party1=" + window.localStorage.getItem("id") + "&party2=" + window.localStorage.getItem("target_user") + "&message=" + message;
             var url3 = "http://www.forwardingenuity.com/ins_message.php"
             $.ajax({
                 type: "POST",                                           //method
