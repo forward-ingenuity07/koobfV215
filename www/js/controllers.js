@@ -160,14 +160,14 @@ angular.module('mobionicApp.controllers', [])
                 timeout: 5000,
                 success: function (data) {
                     if (data == "success") {
-                        alert("sent");
+               //         alert("sent");
                     }
                     else if (data == "error") {
-                        alert("not sent");
+                 //       alert("not sent");
                     }
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
-                    alert("network error");
+               //     alert("network error");
                 }
 
             });
@@ -206,25 +206,25 @@ angular.module('mobionicApp.controllers', [])
             });
 
             delete $scope.data.message;
-            $ionicScrollDelegate.scrollBottom(true);
-            
+          /*  $ionicScrollDelegate.scrollBottom(true);
+            */
             }
        
 
-
+    /*
         $scope.inputUp = function () {
             if (isIOS) $scope.data.keyboardHeight = 216;
             $timeout(function () {
                 $ionicScrollDelegate.scrollBottom(true);
             }, 300);
 
-        };
-
+        };*/
+    /*
         $scope.inputDown = function () {
             if (isIOS) $scope.data.keyboardHeight = 0;
             $ionicScrollDelegate.resize();
         };
-
+        */
         $scope.closeKeyboard = function () {
             // cordova.plugins.Keyboard.close();
         };
