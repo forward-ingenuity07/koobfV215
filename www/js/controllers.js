@@ -86,9 +86,12 @@ angular.module('mobionicApp.controllers', [])
 
 
 // New Controller
-.controller('NewCtrl', function($scope, $http, $ionicModal,$stateParams, $ionicLoading, $timeout, $ionicScrollDelegate, NewsData) {
-
-
+.controller('NewCtrl', function($scope, $http, $interval, $ionicModal,$stateParams, $ionicLoading, $timeout, $ionicScrollDelegate, NewsData) {
+    $interval(function () {
+        $scope.contacted = JSON.parse(window.localStorage.getItem("contacteds"));
+    },1000)
+    $scope.contacted = JSON.parse(window.localStorage.getItem("contacteds"));
+    
 
     $ionicModal.fromTemplateUrl('templates/tabs2.html', {
         id: 'messages',
@@ -123,6 +126,13 @@ angular.module('mobionicApp.controllers', [])
        
     }
     
+    $scope.thread_chosen = function () {
+        window.localStorage.setItem("target_user", event.target.id);
+        window.localStorage.setItem("target_book", event.target.name);
+        $scope.Message_title = event.target.name;
+        $scope.modal_message.show();
+    }
+
     $scope.close_messages = function () {
 
         $scope.modal_message.hide();
@@ -142,33 +152,70 @@ angular.module('mobionicApp.controllers', [])
             d = d.toLocaleTimeString().replace(/:\d+ /, ' ');
          //   var user_id = window.localStorage.getItem("user_id");
             var message = $scope.data.message;
-            
+
+
+            if (window.localStorage.getItem("contacteds") != null) {
+                var contacteds = [{}];
+                contacteds = JSON.parse(window.localStorage.getItem("contacteds"));
+                contacteds.push({
+                    id:window.localStorage.getItem("target_user"),
+                    title: window.localStorage.getItem("target_book"),
+                    lastMessage: message
+                })
+               
+                window.localStorage.setItem("contacteds", JSON.stringify(contacteds));
+                $scope.$apply();
+            }
+            else {
+                var contacteds = [{}];
+                contacteds.push({
+                    id: window.localStorage.getItem("target_user"),
+                    title: window.localStorage.getItem("target_book"),
+                    lastMessage: message
+                });
+                if ($scope.contacted!=null){
+                $scope.contacted.push({
+                    id: window.localStorage.getItem("target_user"),
+                    title: window.localStorage.getItem("target_book"),
+                    lastMessage: message
+                });
+                    $scope.$apply();
+                }
+                window.localStorage.setItem("contacteds", JSON.stringify(contacteds));
+                $scope.$apply();
+                
+            }
+
+            /*
             if (window.localStorage.getItem("messages") != null) {
                 var messages = [];
                 messages = JSON.parse(window.localStorage.getItem("messages"));
                 messages[messages.length] = message;
                 window.localStorage.setItem("messages", JSON.stringify(messages));
-            }
+            }*/
 
-
-
+            /*
+           
             if (window.localStorage.getItem("contacted") != null) {
 
-                var contacted = [];
-                contacted = JSON.parse(window.localStorage.getItem("contacted"));
-                for (var i = 0; i < contacted.length; i++) {
-                    if (window.localStorage.getItem("target_user") == contacted[i].id) {
+                var contacteds = [{}];
+                contacteds = JSON.parse(window.localStorage.getItem("contacted"));
+                for (var i = 0; i < contacteds.length; i++) {
+                    if (window.localStorage.getItem("target_user") == contacteds[i].id) {
                         break;
 
                     }
-                    if ((i == contacted.length - 1) && (window.localStorage.getItem("target_user") != contacted[i].id)) {
-                        var contacted = [];
+                    if ((i == contacteds.length - 1) && (window.localStorage.getItem("target_user") != contacteds[i].id)) {
+                        var contacteds = [];
 
-                        contacted[contacted.length] = {
+                        contacteds.push({
                             id: window.localStorage.getItem("target_user"),
                             title: window.localStorage.getItem("target_book")
-                        }
-
+                        });
+                        $scope.contacted.push({
+                            id: window.localStorage.getItem("target_user"),
+                            title: window.localStorage.getItem("target_book")
+                        });
                         window.localStorage.setItem("contacted", JSON.stringify(contacted));
                     }
 
@@ -178,16 +225,20 @@ angular.module('mobionicApp.controllers', [])
             }
 
             else {
-                var contacted = [];
-                contacted[0] = {
+                var contacteds = [];
+                contacteds[0] = {
                     id: window.localStorage.getItem("target_user"),
                     title: window.localStorage.getItem("target_book")
                 }
+                $scope.contacted.push({
+                    id: window.localStorage.getItem("target_user"),
+                    title: window.localStorage.getItem("target_book")
+                })
                 window.localStorage.setItem("contacted", JSON.stringify(contacted));
             }
+            */
 
-
-
+            
 
 
             var dataStr = "party1=" + window.localStorage.getItem("id") + "&party2=" + window.localStorage.getItem("target_user") + "&message=" + message + "&time=" + d;
@@ -413,7 +464,7 @@ angular.module('mobionicApp.controllers', [])
 
     .controller('messagesCtrl', function ($scope, $http) {
         $scope.contacted = JSON.parse(window.localStorage.getItem("contacted"));
-
+        
         var url_messages = "http://www.forwardingenuity.com/messages.php";
         $http({ method: 'GET', url: url_messages, timeout: 5000 }).
          // this callback will be called asynchronously
@@ -1164,6 +1215,7 @@ angular.module('mobionicApp.controllers', [])
                       price: price,
                       faculty:faculty
                   })
+                  $scope.$apply();
                   $timeout(function () {
 
 

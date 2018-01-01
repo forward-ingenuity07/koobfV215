@@ -411,7 +411,7 @@ angular.module('mobionicApp', ['ionic', 'mobionicApp.controllers', 'mobionicApp.
           views: {
               'menuContent': {
                   templateUrl: "templates/messages.html",
-                  controller:'messagesCtrl'
+                  controller:'NewCtrl'
               }
           }
       })
