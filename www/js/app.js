@@ -81,6 +81,7 @@ angular.module('mobionicApp', ['ionic', 'mobionicApp.controllers', 'mobionicApp.
       controller: 'AppCtrl'
     })
 
+
     .state('app.home', {
       url: "/home",
       views: {

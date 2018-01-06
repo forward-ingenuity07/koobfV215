@@ -1,4 +1,7 @@
 <ion-view title="Accommodation">
+    <ion-nav-buttons side="right">
+        <button menu-toggle="right" class="button button-icon icon ion-navicon" ng-click="change_content"></button>
+    </ion-nav-buttons>
     <ion-content class="has-header">
         
         {{storage}}
@@ -14,11 +17,6 @@
             </div>
         </div>
         -->
-        <ion-searchbar [(ngModel)]="myInput"
-                       [showCancelButton]="shouldShowCancel"
-                       (ionInput)="onInput($event)"
-                       (ionCancel)="onCancel($event)">
-        </ion-searchbar>
         
             <div class="row" ng-repeat="row in products | partition:2">
                 <div class="col" ng-repeat="product in row">

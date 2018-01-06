@@ -43,6 +43,16 @@ angular.module('mobionicApp.controllers', [])
         // notifyCallback
         function() {}
     );
+    var search;
+    $scope.search_show_hide = function () {
+        if (search) {
+            $("#search_show").show();
+        }
+        else {
+            $("#search_show").hide();
+        }
+    }
+
 
 })
 
@@ -333,12 +343,12 @@ angular.module('mobionicApp.controllers', [])
 })
 
 // Products Controller
-.controller('ProductsCtrl', function($scope, $ionicLoading, $http, $interval, ProductsData, ProductsStorage) {
-    
+.controller('ProductsCtrl', function($scope, $ionicLoading, $http, $interval,MenuData, ProductsData, ProductsStorage) {
     $scope.products = [];
     $scope.storage = '';
     $scope.place=[];
-   
+    $scope.$emit('change_event', [1, 2, 3]);
+    $scope.$broadcast('change_event', [1, 2, 3]);
   /*  $http({
         method: 'GET',
         url: 'http://forwardingenuity.com/accom.php'
@@ -391,7 +401,8 @@ angular.module('mobionicApp.controllers', [])
     // Products Controller
 .controller('sellCtrl', function ($scope, $ionicModal, $ionicLoading, $http, $interval, ProductsData, ProductsStorage) {
 
-    
+    $scope.$emit('change_event_to_profile', [1, 2, 3]);
+    $scope.$broadcast('change_event_to_profile', [1, 2, 3]);
     if (window.localStorage.getItem("Logged_in") != "1") {
         // Create the login modal that we will use later
         $scope.modal.show();
@@ -1067,10 +1078,17 @@ angular.module('mobionicApp.controllers', [])
 
 .controller('AppCtrl', function ($scope, $ionicLoading, $ionicModal, $timeout, $ionicPopup, MenuData, $http, $ionicActionSheet, $ionicPlatform) {
    
-
-
   $scope.items = MenuData.items;
-    $scope.profileMenu=MenuData.profileMenu;
+  $scope.profileMenu = MenuData.profileMenu;
+  $scope.$on('change_event', function (event, mass) {
+      $scope.profileMenu = MenuData.accommod;
+      $scope.apply();
+  });
+  $scope.$on('change_event_to_profile', function (event, mass) {
+      $scope.profileMenu = MenuData.profileMenu;
+      $scope.apply();
+  });
+  
   // Form data for the login modal
   $scope.loginData = {};
   $scope.SellData = {};

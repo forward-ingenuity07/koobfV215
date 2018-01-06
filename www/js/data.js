@@ -174,6 +174,43 @@ angular.module('mobionicApp.data', [])
         }*/
     ];
     
+    data.accommod = [
+
+        {
+            title: 'Advanced search',
+            icon: 'ion-android-search',
+            url: 'BookRequest()'
+        },
+        
+        {
+            title: 'Sponsors',
+            icon: 'ion-ios-star',
+            url: '#/app/tabs'
+        }
+        /*,
+        {
+            title: 'Tabs',
+            icon: 'ion-drag',
+            url: '#/app/tabs'
+        },
+        {
+            title: 'Grid',
+            icon: 'ion-grid',
+            url: '#/app/grid'
+        },
+        {
+            title: 'Profile',
+            icon: 'ion-person',
+            url: '../CRM/chating1.html'
+
+        },
+        {
+            title: 'RSS (Pull to refresh)',
+            icon: 'ion-social-rss',
+            url: '#/app/feeds-refresher'
+        }*/
+    ];
+
 
     return data;
 })
