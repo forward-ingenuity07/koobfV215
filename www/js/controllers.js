@@ -13,10 +13,18 @@ angular.module('mobionicApp.controllers', [])
 })
 
 // News Controller
-.controller('NewsCtrl', function($scope, $ionicLoading, NewsData, NewsStorage) {
+.controller('NewsCtrl', function($scope,$filter, $ionicLoading, NewsData, NewsStorage) {
     
     $scope.news = [];
     $scope.storage = '';
+    $scope.filtered = [];
+    var filtered = $scope.filtered;
+    $scope.check = function (parent,index) {
+        window.localStorage.setItem("book_choose", JSON.stringify(parent.filtered[index]));
+        window.localStorage.setItem("book_choose", JSON.stringify(parent.filtered[index]))
+        $scope.$emit('book_select', [1, 2, 3]);
+        $scope.$broadcast('book_select', [1, 2, 3]);
+    }
     
     $scope.loading = $ionicLoading.show({
       template: '<i class="icon ion-loading-c"></i> Loading Data',
@@ -43,16 +51,15 @@ angular.module('mobionicApp.controllers', [])
         // notifyCallback
         function() {}
     );
-    var search;
-    $scope.search_show_hide = function () {
-        if (search) {
-            $("#search_show").show();
-        }
-        else {
-            $("#search_show").hide();
-        }
+    $scope.receiving = function (event) {
+        $scope.bookie = event.target.id;
+        $scope.$apply();
     }
-
+    var available_search = false;
+    $scope.search_on = available_search;
+    $scope.searching = function () {
+        $scope.search_on = !($scope.search_on);
+    }
 
 })
 
@@ -109,8 +116,14 @@ angular.module('mobionicApp.controllers', [])
     }).then(function (modal) {
         $scope.modal_message = modal;
     });
-
-    $scope.new = NewsData.get($stateParams.newId);
+    $scope.new = JSON.parse(window.localStorage.getItem("book_choose")
+       )
+  //  $scope.new = NewsData.get($stateParams.newId);
+  //  $scope.new = $scope.filtered[$stateParams.newId];
+  /*  $scope.$on('book_select', function (event, mass) {
+        
+    });
+    */
     $scope.book_contact = function (event) {
         window.localStorage.setItem("target_user", event.target.id);
         window.localStorage.setItem("target_book", event.target.name);

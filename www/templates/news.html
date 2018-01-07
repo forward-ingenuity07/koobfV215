@@ -1,21 +1,20 @@
 <ion-view title="Find books">
     <ion-nav-buttons side="right">
-        <a class="button button-clear" role="button" ng-click="search_show_hide"><i class="icon ion-android-search"></i></a>
+        <a class="button button-clear" role="button" ng-click="searching()"><i class="icon ion-android-search"></i></a>
     </ion-nav-buttons>
     <ion-content class="has-header">
-        
+
         {{storage}}
         
         <div class="list">
-            <div id="search_show">
+            <div id="search_show" ng-show="search_on">
                 <label class="item item-input">
                     <i class="icon ion-android-search placeholder-icon"></i>
-                    <input id="book_search" type="search" placeholder="Search" ng-model="search_books">
+                    <input id="book_search" type="search" placeholder="Search" ng-model="query">
                 </label>
             </div>
-            <a class="item" ng-class="{'item-thumbnail-left' : new.picture}" href="#/app/news/{{$index}}" ng-repeat="new in news | filter:search_books">
+            <a id="{{$index}}" role="button" class="item" ng-class="{'item-thumbnail-left' : new.picture}" href="#/app/news/{{$index}}" ng-click="check($parent,$index)" ng-repeat="new in filtered= (news | filter:query)">
                 <img ng-src="{{new.picture}}" alt="{{new.title}}">
-                
                 <h2>{{new.title}}</h2>
                 <p>R{{new.price}}</p>
             </a>
