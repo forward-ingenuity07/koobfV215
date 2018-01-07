@@ -427,6 +427,15 @@ angular.module('mobionicApp', ['ionic', 'mobionicApp.controllers', 'mobionicApp.
       }
     })
 
+    .state('app.advanced_search', {
+        url: "/advanced_search",
+        views: {
+            'menuContent': {
+                templateUrl: "templates/advanced_search.html",
+                controller: 'ProductsCtrl'
+            }
+        }
+    })
     // if none of the above states are matched, use this as the fallback
     $urlRouterProvider.otherwise('/app/home');
 });

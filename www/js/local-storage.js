@@ -138,6 +138,23 @@ angular.module('mobionicApp.storage', [])
                name: 'Fifth Option',
                checked: false
             }],
+            type: [
+          {
+              name: 'Commune',
+              value: true
+          },
+          {
+              name: 'Flat',
+              value: false
+          },
+          {
+              name: 'Sharing',
+              value: false
+          },
+          {
+              name: 'Single',
+              value: false
+          }],
             sorting: 'A',
             range:30
         };

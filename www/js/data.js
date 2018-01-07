@@ -179,7 +179,7 @@ angular.module('mobionicApp.data', [])
         {
             title: 'Advanced search',
             icon: 'ion-android-search',
-            url: 'BookRequest()'
+            url: 'advancedSearch()'
         },
         
         {
@@ -664,8 +664,25 @@ angular.module('mobionicApp.data', [])
            name: 'Fifth Option',
            value: false
         }],
+        type:[
+        {
+            name: 'Commune',
+            value: true
+        },
+        {
+            name: 'Flat',
+            value: true
+        },
+        {
+            name: 'Sharing',
+            value: true
+        },
+        {
+            name: 'Single',
+            value: true
+        }],
         sorting: 'A',
-        range:30
+        range:3000
     };
 
     return data;

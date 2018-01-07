@@ -13,7 +13,7 @@ angular.module('mobionicApp.controllers', [])
 })
 
 // News Controller
-.controller('NewsCtrl', function($scope,$filter, $ionicLoading, NewsData, NewsStorage) {
+.controller('NewsCtrl', function($scope,$filter,$window, $ionicLoading, NewsData, $ionicScrollDelegate, NewsStorage) {
     
     $scope.news = [];
     $scope.storage = '';
@@ -58,7 +58,12 @@ angular.module('mobionicApp.controllers', [])
     var available_search = false;
     $scope.search_on = available_search;
     $scope.searching = function () {
+        
+        
         $scope.search_on = !($scope.search_on);
+       
+            $ionicScrollDelegate.scrollTop();
+       
     }
 
 })
@@ -362,6 +367,7 @@ angular.module('mobionicApp.controllers', [])
     $scope.place=[];
     $scope.$emit('change_event', [1, 2, 3]);
     $scope.$broadcast('change_event', [1, 2, 3]);
+
   /*  $http({
         method: 'GET',
         url: 'http://forwardingenuity.com/accom.php'
@@ -382,7 +388,7 @@ angular.module('mobionicApp.controllers', [])
       // The delay in showing the indicator
       showDelay: 10
     });
-    $interval(function () {
+   
         ProductsData.async().then(
         // successCallback
         function () {
@@ -405,10 +411,9 @@ angular.module('mobionicApp.controllers', [])
         function () { }
     );
 
-    },2000)
+   
     
-
-
+    
 })
 
     // Products Controller
@@ -1089,8 +1094,9 @@ angular.module('mobionicApp.controllers', [])
     
 })
 
-.controller('AppCtrl', function ($scope, $ionicLoading, $ionicModal, $timeout, $ionicPopup, MenuData, $http, $ionicActionSheet, $ionicPlatform) {
-   
+.controller('AppCtrl', function ($scope, $ionicLoading, SettingsData, $ionicModal, $timeout, $ionicPopup, MenuData, $http, $ionicActionSheet, $ionicPlatform) {
+    $scope.settings = SettingsData.items;
+
   $scope.items = MenuData.items;
   $scope.profileMenu = MenuData.profileMenu;
   $scope.$on('change_event', function (event, mass) {
@@ -1165,6 +1171,13 @@ angular.module('mobionicApp.controllers', [])
         scope: $scope
     }).then(function (modal) {
         $scope.modal_BookRequest = modal;
+    });
+
+    $ionicModal.fromTemplateUrl('templates/advanced_search.html', {
+        id: 'search',
+        scope: $scope
+    }).then(function (modal) {
+        $scope.modal_search = modal;
     });
 
     $scope.BookRequest = function () {
@@ -1599,6 +1612,10 @@ angular.module('mobionicApp.controllers', [])
 
     }
     
+    $scope.advancedSearch = function () {
+        //  $scope.modal_search.show();
+        location.href="#/app/advanced_search"
+    }
 
 
 })
