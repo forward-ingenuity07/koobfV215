@@ -681,6 +681,19 @@ angular.module('mobionicApp.data', [])
             name: 'Single',
             value: true
         }],
+        area: [
+        {
+            name: 'Hatfield',
+            value: true
+        },
+        {
+            name: 'Sunnyside',
+            value: true
+        },
+        {
+            name: 'Pretoria Central',
+            value: true
+        }],
         sorting: 'A',
         range:3000
     };

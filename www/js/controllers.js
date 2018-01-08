@@ -361,7 +361,7 @@ angular.module('mobionicApp.controllers', [])
 })
 
 // Products Controller
-.controller('ProductsCtrl', function($scope, $ionicLoading, $http, $interval,MenuData, ProductsData, ProductsStorage) {
+.controller('ProductsCtrl', function($scope, $ionicLoading, $http, $interval,MenuData, ProductsData, SettingsData, ProductsStorage) {
     $scope.products = [];
     $scope.storage = '';
     $scope.place=[];
@@ -410,10 +410,40 @@ angular.module('mobionicApp.controllers', [])
         // notifyCallback
         function () { }
     );
-
    
-    
-    
+        $scope.filtering = SettingsData.items.type;
+
+        $scope.type_filter = function (tags) {
+            var filt = $scope.filtering;
+            var status = true;
+            for (var i = 0; i < tags.length; i++) {
+                for (var j=0; j < $scope.filtering.length; j++) {
+                    if (tags[i].toLowerCase() == (filt[j].name).toLowerCase()) {
+                        if (filt[j].value == true) {
+                            //return true;
+                            status = true;
+                        }
+                        else {
+                            return false;
+                        }
+                        if (i == tags.length && j == filt.length) {
+                        /*    if (filt[j].value == true) {
+                                return true;
+                            }
+                            else {
+                                return false;
+                            }*/
+                            
+                        }
+                    }
+                    
+                        
+                }
+
+            }
+            return status;
+        }
+
 })
 
     // Products Controller
@@ -1096,7 +1126,7 @@ angular.module('mobionicApp.controllers', [])
 
 .controller('AppCtrl', function ($scope, $ionicLoading, SettingsData, $ionicModal, $timeout, $ionicPopup, MenuData, $http, $ionicActionSheet, $ionicPlatform) {
     $scope.settings = SettingsData.items;
- 
+    
   $scope.items = MenuData.items;
   $scope.profileMenu = MenuData.profileMenu;
   $scope.$on('change_event', function (event, mass) {
@@ -1617,6 +1647,18 @@ angular.module('mobionicApp.controllers', [])
         location.href="#/app/advanced_search"
     }
 
+    $scope.toggle_button = function (setting) {
+        if (setting.value == true) {
+            window.localStorage.setItem(setting.name, "1");
+            $scope.$emit(setting.name, [1, 2, 3]);
+            $scope.$broadcast(setting.name, [1, 2, 3]);
+
+        }
+        else {
+            window.localStorage.setItem(setting.name, "0");
+        }
+        
+    }
 
 })
 
