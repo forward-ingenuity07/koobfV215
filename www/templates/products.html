@@ -19,7 +19,7 @@
         -->
         
             <div class="row" ng-repeat="row in products | partition:2">
-                <div class="col" ng-show="type_filter(product.tags)" ng-repeat="product in row">
+                <div class="col" ng-show="type_filter(product.tags,product.area,product.price)" ng-repeat="product in row">
                     <a href="#/app/products/{{(($parent.$index*row.length)+$index)}}"><img ng-src="{{product.thumb}}" alt="{{product.title}}" /></a>
                     
                         <a href="#/app/products/{{(($parent.$index*row.length)+$index)}}"><h2>{{product.title}}</h2></a>

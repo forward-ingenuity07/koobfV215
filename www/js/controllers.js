@@ -412,9 +412,12 @@ angular.module('mobionicApp.controllers', [])
     );
    
         $scope.filtering = SettingsData.items.type;
+        
 
-        $scope.type_filter = function (tags) {
+        $scope.type_filter = function (tags,area,price) {
             var filt = $scope.filtering;
+            var place = SettingsData.items.area;
+            var cost = SettingsData.items.range;
             var status = true;
             for (var i = 0; i < tags.length; i++) {
                 for (var j=0; j < $scope.filtering.length; j++) {
@@ -441,6 +444,29 @@ angular.module('mobionicApp.controllers', [])
                 }
 
             }
+            
+            
+                for (var k = 0; k < place.length; k++) {
+                    if (area.toLowerCase() == (place[k].name).toLowerCase()) {
+                        if (place[k].value == true) {
+                            //return true;
+                            status = true;
+                        }
+                        else {
+                            return false;
+                        }
+                       
+                    }
+
+
+                }
+                if (price > cost) {
+                    return false;
+                }
+            
+
+
+
             return status;
         }
 
