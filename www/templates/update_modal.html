@@ -1,25 +1,26 @@
 ﻿<div class="modal">
     <ion-header-bar>
-        <h1 class="title">Book request</h1>
+        <h1 class="title">Edit book upload</h1>
         <div class="buttons">
-            <button class="button button-clear" ng-click="closeBookRequest()">Close</button>
+            <button class="button button-clear" ng-click="closeUpdate()">Close</button>
         </div>
     </ion-header-bar>
+
     <ion-content>
-        <form ng-submit="doBookRequest()">
+        <form ng-submit="update_done()">
             <div class="list">
                 <label class="item item-input">
                     <span class="input-label">Title</span>
-                    <input type="text" ng-model="BookRequestData.title">
+                    <input id="title" type="text" ng-model="update.title">
                 </label>
                 <label class="item item-input">
-                    <span class="input-label">Module code</span>
-                    <input type="text" ng-model="BookRequestData.ModuleCode">
+                    <span class="input-label">Price</span>
+                    <input id="price" type="number" ng-model="update.price">
                 </label>
-                
+
                 <label class="item item-input">
                     <span class="input-label">Faculty</span>
-                    <select id="faculty_chosen" style="max-width:150px;text-overflow:ellipsis">
+                    <select id="faculty_chosen2" ng-model="facul" style="max-width:150px;text-overflow:ellipsis">
                         <option value="Economic and Management Sciences">Economic and Management Sciences</option>
                         <option value="Education">Education</option>
                         <option value="Engineering, Built Environment and IT">Engineering, Built Environment & IT</option>
@@ -31,18 +32,21 @@
                         <option value="Vertinary Science">Vertinary Science</option>
                     </select>
                 </label>
-                <div class="item item-divider">Year</div>
-                <ul class="list">
-                    <ion-radio ng-model="year_chosen" ng-value="1" checked>First year</ion-radio>
-                    <ion-radio ng-model="year_chosen" value="2">Second year</ion-radio>
-                    <ion-radio ng-model="year_chosen" value="3">Third year</ion-radio>
-                    <ion-radio ng-model="year_chosen" value="4">Fourth year</ion-radio>
-                    <ion-radio ng-model="year_chosen" value="Post">Post Graduate</ion-radio>
-                    </ul>
-                    <label class="item">
-                        <button id="request" class="button button-block button-positive" type="submit">Request Book!</button>
-                    </label>
-</div>
+                <!--
+                <input type="radio" name="gender" value="1" checked>First year<br>
+                <input type="radio" name="gender" value="2">Second year<br>
+                <input type="radio" name="gender" value="3">Third year<br>
+                <input type="radio" name="gender" value="4">Fourth year<br />
+                <input type="radio" name="gender" value="Post">Post Graduate
+                    -->
+                <label class="item item-input">
+                    <span class="input-label">Image</span>
+                    <input type="file" id="afile" name="afile">
+                </label>
+                <label class="item">
+                    <button id="insert_book" class="button button-block button-positive" type="submit">Submit</button>
+                </label>
+            </div>
         </form>
     </ion-content>
 </div>

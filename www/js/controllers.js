@@ -1152,7 +1152,7 @@ angular.module('mobionicApp.controllers', [])
 
 .controller('AppCtrl', function ($scope, $ionicLoading, SettingsData, $ionicModal, $timeout, $ionicPopup, MenuData, $http, $ionicActionSheet, $ionicPlatform) {
     $scope.settings = SettingsData.items;
-    
+
   $scope.items = MenuData.items;
   $scope.profileMenu = MenuData.profileMenu;
   $scope.$on('change_event', function (event, mass) {
@@ -1206,6 +1206,13 @@ angular.module('mobionicApp.controllers', [])
         scope: $scope
     }).then(function (modal) {
         $scope.modal_sell = modal;
+    });
+
+    $ionicModal.fromTemplateUrl('templates/update_modal.html', {
+        id: 'update',
+        scope: $scope
+    }).then(function (modal) {
+        $scope.modal_update = modal;
     });
 
     $ionicModal.fromTemplateUrl('templates/sell_modal2.html', {
@@ -1390,6 +1397,7 @@ angular.module('mobionicApp.controllers', [])
                       window.localStorage.setItem("email", response.data[i].email);
                       window.localStorage.setItem("username", response.data[i].username);
                       window.localStorage.setItem("id", response.data[i].id);
+                      window.localStorage.setItem("stars", response.data[i].stars);
                       window.plugins.OneSignal.sendTag("email", window.localStorage.getItem("email"));
                       break;
                   }
@@ -1483,7 +1491,7 @@ angular.module('mobionicApp.controllers', [])
                           var password = $scope.signupData.password;
                           window.localStorage.setItem("email", email);
                           window.localStorage.setItem("username", username);
-                          var dataString = "username=" + username + "&email=" + email + "&password=" + password + "&insert=";
+                          var dataString = "username=" + username + "&email=" + email + "&password=" + password + "&stars=1"+ "&insert=";
                           $.ajax({
                               type: "POST",
                               url: "http://forwardingenuity.com/insert_user.php",
@@ -1587,7 +1595,7 @@ angular.module('mobionicApp.controllers', [])
     };
    
     $scope.empty = 5;
-    $scope.filled = 3;
+    $scope.filled = window.localStorage.getItem("stars");
     $scope.getNumber = function (num) {
         var arr = [];
         for (var i = 0; i < num; i++) {
@@ -1596,6 +1604,9 @@ angular.module('mobionicApp.controllers', [])
         return arr;
 }
  
+
+    $scope.year_chosen = '1';
+
     $scope.doBookRequest = function () {
         $scope.loading = $ionicLoading.show({
             template: '<i class="icon ion-loading-c"></i>Sending request',
@@ -1686,6 +1697,128 @@ angular.module('mobionicApp.controllers', [])
         
     }
 
+    $scope.update = {};
+
+    $scope.chosen_from_list = function (book) {
+        $scope.modal_update.show();
+        
+        $scope.update.title = book.title;
+        $scope.update.price = book.price;
+        $scope.facul = book.faculty;
+        window.localStorage.setItem("update_book_id", book.id);
+    }
+    $scope.closeUpdate = function () {
+        $scope.modal_update.hide();
+
+    }
+    $scope.update_done = function () {
+        $scope.loading = $ionicLoading.show({
+            template: '<i class="icon ion-loading-c"></i>Sending request',
+
+            //Will a dark overlay or backdrop cover the entire view
+            showBackdrop: false,
+
+            // The delay in showing the indicator
+            showDelay: 10
+        });
+        var title = $scope.update.title;
+        var price = $scope.update.price;
+        var code = $scope.BookRequestData.ModuleCode;
+        var e = document.getElementById("faculty_chosen");
+        var faculty = e.options[e.selectedIndex].value;
+        var year = $("input[name='year']:checked").val();
+        var user_id = window.localStorage.getItem("id");
+        var dataString = "title=" + title + "&code=" + code + "&faculty=" + faculty + "&year=" + year + "&user_id=" + user_id + "&insert=";
+
+
+        var file = document.querySelector("#afile").files[0];
+        var fd = new FormData();
+        fd.append("afile", file);
+        fd.append("title", title);
+        fd.append("price", price);
+        fd.append("code", code);
+        fd.append("faculty", faculty);
+        fd.append("year", year);
+        fd.append("id",window.localStorage.getItem("update_book_id"))
+
+        var filename = "http://www.forwardingenuity.com/forB/images/";
+        fd.append("image", filename);
+
+        //var dataString = "name=" + window.localStorage.getItem("Name") + "&email=" + window.localStorage.getItem("email") + "&province=" + window.localStorage.getItem("province") + "&image=" + filename + "&insert=1";
+
+        // These extra params aren't necessary but show that you can include other data.
+
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', 'http://forwardingenuity.com/phps/book_requests.php', true);
+        //var filename = $('input[type=file]').val().replace(/C:\\fakepath\\/i, '')
+        xhr.upload.onprogress = function (e) {
+            if (e.lengthComputable) {
+                var percentComplete = (e.loaded / e.total) * 100;
+                console.log(percentComplete + '% uploaded');
+
+            }
+        };
+        xhr.onload = function () {
+            window.localStorage.setItem("entered", "1");
+        };
+        xhr.send(fd);
+
+
+
+        $.ajax({
+            type: "POST",
+            url: "http://forwardingenuity.com/phps/book_requests.php",
+            data: dataString,
+            crossDomain: true,
+            cache: false,
+            timeout: 2000,
+            beforeSend: function () { $("#request").text('Requesting...'); },
+            success: function (data) {
+                if (data == "success") {
+                    //           alert("inserted");
+                    $timeout(function () {
+
+
+                        $scope.loading.hide();
+                        var alertPopup = $ionicPopup.alert({
+                            title: 'Book request',
+                            template: 'Request submitted, we hope to give you feedback soon!'
+                        });
+                        $("#request").text('Request Book!');
+                        $scope.closeBookRequest()
+
+                    }, 1500);
+                }
+                else if (data == "error") {
+                    $timeout(function () {
+
+
+                        $scope.loading.hide();
+                        var alertPopup = $ionicPopup.alert({
+                            title: 'Book request',
+                            template: 'Request not submitted, Please try again.'
+                        });
+                        $("#request").text('Request Book!');
+                    }, 1500);
+                }
+            },
+            error: function (jqXHR, exception) {
+                $timeout(function () {
+
+
+                    $scope.loading.hide();
+                    var alertPopup = $ionicPopup.alert({
+                        title: 'Book request',
+                        template: 'Network error, please check connection and try again'
+                    });
+                    $("#request").text('Request Book!');
+
+                }, 1500);
+            }
+        });
+
+
+    }
 })
 
 // Feed Plugin Categories Controller

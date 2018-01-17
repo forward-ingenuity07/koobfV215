@@ -695,7 +695,7 @@ angular.module('mobionicApp.data', [])
             value: true
         }],
         sorting: 'A',
-        range:3000
+        range:5000
     };
 
     return data;
