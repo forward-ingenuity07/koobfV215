@@ -1711,9 +1711,10 @@ angular.module('mobionicApp.controllers', [])
         $scope.modal_update.hide();
 
     }
+    $scope.update = {};
     $scope.update_done = function () {
         $scope.loading = $ionicLoading.show({
-            template: '<i class="icon ion-loading-c"></i>Sending request',
+            template: '<i class="icon ion-loading-c"></i>Making changes...',
 
             //Will a dark overlay or backdrop cover the entire view
             showBackdrop: false,
@@ -1723,20 +1724,18 @@ angular.module('mobionicApp.controllers', [])
         });
         var title = $scope.update.title;
         var price = $scope.update.price;
-        var code = $scope.BookRequestData.ModuleCode;
-        var e = document.getElementById("faculty_chosen");
+       
+        var e = document.getElementById("faculty_chosen2");
         var faculty = e.options[e.selectedIndex].value;
         var year = $("input[name='year']:checked").val();
         var user_id = window.localStorage.getItem("id");
-        var dataString = "title=" + title + "&code=" + code + "&faculty=" + faculty + "&year=" + year + "&user_id=" + user_id + "&insert=";
-
+        
 
         var file = document.querySelector("#afile").files[0];
         var fd = new FormData();
         fd.append("afile", file);
         fd.append("title", title);
         fd.append("price", price);
-        fd.append("code", code);
         fd.append("faculty", faculty);
         fd.append("year", year);
         fd.append("id",window.localStorage.getItem("update_book_id"))
@@ -1758,64 +1757,26 @@ angular.module('mobionicApp.controllers', [])
 
             }
         };
+        $scope.done1='0';
         xhr.onload = function () {
-            window.localStorage.setItem("entered", "1");
+            $scope.loading.hide();
+            var alertPopup = $ionicPopup.alert({
+                title: 'Edit Book',
+                template: 'Changes made successfully :)'
+            });
+            $scope.done1 = '1';
         };
         xhr.send(fd);
+        if($scope.done1=='0'){
+            $timeout(function () {
+                $scope.loading.hide();
+                var alertPopup = $ionicPopup.alert({
+                    title: 'Edit Book',
+                    template: 'Changes not made, please try again'
+                });
+            },5000)
+        }
 
-
-
-        $.ajax({
-            type: "POST",
-            url: "http://forwardingenuity.com/phps/book_requests.php",
-            data: dataString,
-            crossDomain: true,
-            cache: false,
-            timeout: 2000,
-            beforeSend: function () { $("#request").text('Requesting...'); },
-            success: function (data) {
-                if (data == "success") {
-                    //           alert("inserted");
-                    $timeout(function () {
-
-
-                        $scope.loading.hide();
-                        var alertPopup = $ionicPopup.alert({
-                            title: 'Book request',
-                            template: 'Request submitted, we hope to give you feedback soon!'
-                        });
-                        $("#request").text('Request Book!');
-                        $scope.closeBookRequest()
-
-                    }, 1500);
-                }
-                else if (data == "error") {
-                    $timeout(function () {
-
-
-                        $scope.loading.hide();
-                        var alertPopup = $ionicPopup.alert({
-                            title: 'Book request',
-                            template: 'Request not submitted, Please try again.'
-                        });
-                        $("#request").text('Request Book!');
-                    }, 1500);
-                }
-            },
-            error: function (jqXHR, exception) {
-                $timeout(function () {
-
-
-                    $scope.loading.hide();
-                    var alertPopup = $ionicPopup.alert({
-                        title: 'Book request',
-                        template: 'Network error, please check connection and try again'
-                    });
-                    $("#request").text('Request Book!');
-
-                }, 1500);
-            }
-        });
 
 
     }
