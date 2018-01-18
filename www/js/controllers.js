@@ -1286,7 +1286,7 @@ angular.module('mobionicApp.controllers', [])
 
   }
   $scope.Sell = function () {
-
+      $("#insert_book").text('Connecting...');
       $scope.loading = $ionicLoading.show({
           template: '<i class="icon ion-loading-c"></i> Uploading...',
 
@@ -1296,13 +1296,68 @@ angular.module('mobionicApp.controllers', [])
           // The delay in showing the indicator
           showDelay: 10
       });
-
+      
       var title = $scope.SellData.title;
       var price = $scope.SellData.price;
       var el = document.getElementById("faculty_chosen2");
       var faculty = el.options[el.selectedIndex].value;
       var uploader = window.localStorage.getItem("id");
 
+
+      var file = document.querySelector("#afile").files[0];
+      var fd = new FormData();
+      fd.append("afile", file);
+      fd.append("title", title);
+      fd.append("price", price);
+      fd.append("faculty", faculty);
+      fd.append("uploader", uploader)
+
+      var filename = "http://www.forwardingenuity.com/forB/images/";
+      fd.append("image", filename);
+
+      //var dataString = "name=" + window.localStorage.getItem("Name") + "&email=" + window.localStorage.getItem("email") + "&province=" + window.localStorage.getItem("province") + "&image=" + filename + "&insert=1";
+
+      // These extra params aren't necessary but show that you can include other data.
+      var done2 = '0';
+      var xhr = new XMLHttpRequest();
+      xhr.open('POST', 'http://forwardingenuity.com/phps/insert_book_new.php', true);
+      //var filename = $('input[type=file]').val().replace(/C:\\fakepath\\/i, '')
+      xhr.upload.onprogress = function (e) {
+          if (e.lengthComputable) {
+              var percentComplete = (e.loaded / e.total) * 100;
+              console.log(percentComplete + '% uploaded');
+              if (percentComplete == 100) {
+                  $scope.loading.hide();
+                  var alertPopup = $ionicPopup.alert({
+                      title: 'Sell Book',
+                      template: 'Book inserted successfully! :)'
+                  });
+                  $("#insert_book").text('Submit');
+
+                  $scope.closeSell();
+                  done2 = '1';
+                 
+              }
+          }
+      };
+
+      xhr.onload = function () {
+
+      };
+      xhr.send(fd);
+
+      $timeout(function () {
+          if (done2 == '0') {
+              $scope.loading.hide();
+              var alertPopup = $ionicPopup.alert({
+                  title: 'Insert Book',
+                  template: 'Book not inserted, please try again'
+              });
+          }
+      }, 5000)
+
+
+      /*
       var dataString2 = "title=" + title + "&price=" + price + "&faculty=" + faculty  + "&uploader=" + uploader + "&insert=";
       $.ajax({
           type: "POST",
@@ -1366,7 +1421,7 @@ angular.module('mobionicApp.controllers', [])
               }, 1500);
           }
       });
-
+      */
 
   }
 
