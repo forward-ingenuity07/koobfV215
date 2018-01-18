@@ -1746,25 +1746,26 @@ angular.module('mobionicApp.controllers', [])
         //var dataString = "name=" + window.localStorage.getItem("Name") + "&email=" + window.localStorage.getItem("email") + "&province=" + window.localStorage.getItem("province") + "&image=" + filename + "&insert=1";
 
         // These extra params aren't necessary but show that you can include other data.
-
+        $scope.done1 = '0';
         var xhr = new XMLHttpRequest();
-        xhr.open('POST', 'http://forwardingenuity.com/phps/book_requests.php', true);
+        xhr.open('POST', 'http://forwardingenuity.com/phps/update_new.php', true);
         //var filename = $('input[type=file]').val().replace(/C:\\fakepath\\/i, '')
         xhr.upload.onprogress = function (e) {
             if (e.lengthComputable) {
                 var percentComplete = (e.loaded / e.total) * 100;
                 console.log(percentComplete + '% uploaded');
-
+                $scope.loading.hide();
+                var alertPopup = $ionicPopup.alert({
+                    title: 'Edit Book',
+                    template: 'Changes made successfully :)'
+                });
+                $scope.done1 = '1';
+                $scope.closeUpdate();
             }
         };
-        $scope.done1='0';
+
         xhr.onload = function () {
-            $scope.loading.hide();
-            var alertPopup = $ionicPopup.alert({
-                title: 'Edit Book',
-                template: 'Changes made successfully :)'
-            });
-            $scope.done1 = '1';
+
         };
         xhr.send(fd);
         if($scope.done1=='0'){
