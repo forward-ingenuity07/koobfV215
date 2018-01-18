@@ -1754,6 +1754,7 @@ angular.module('mobionicApp.controllers', [])
             if (e.lengthComputable) {
                 var percentComplete = (e.loaded / e.total) * 100;
                 console.log(percentComplete + '% uploaded');
+                if(percentComplete==100){
                 $scope.loading.hide();
                 var alertPopup = $ionicPopup.alert({
                     title: 'Edit Book',
@@ -1761,6 +1762,7 @@ angular.module('mobionicApp.controllers', [])
                 });
                 $scope.done1 = '1';
                 $scope.closeUpdate();
+                }
             }
         };
 
