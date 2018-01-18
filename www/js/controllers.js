@@ -474,9 +474,15 @@ angular.module('mobionicApp.controllers', [])
 
     // Products Controller
 .controller('sellCtrl', function ($scope, $ionicModal, $ionicLoading, $http, $interval, ProductsData, ProductsStorage) {
-
+    $scope.book_uploads = [];
     $scope.$emit('change_event_to_profile', [1, 2, 3]);
     $scope.$broadcast('change_event_to_profile', [1, 2, 3]);
+
+    $scope.$on('book_inserted', function (event, data) {
+        $scope.book_uploads.push(data);
+    });
+
+
     if (window.localStorage.getItem("Logged_in") != "1") {
         // Create the login modal that we will use later
         $scope.modal.show();
@@ -1302,7 +1308,13 @@ angular.module('mobionicApp.controllers', [])
       var el = document.getElementById("faculty_chosen2");
       var faculty = el.options[el.selectedIndex].value;
       var uploader = window.localStorage.getItem("id");
-
+      var book_info={
+          "title":title,
+          "price":price,
+          "faculty":faculty,
+          "uploader":uploader
+      }
+      window.localStorage.setItem("book_info",JSON.stringify(book_info));
 
       var file = document.querySelector("#afile").files[0];
       var fd = new FormData();
@@ -1322,11 +1334,15 @@ angular.module('mobionicApp.controllers', [])
       var xhr = new XMLHttpRequest();
       xhr.open('POST', 'http://forwardingenuity.com/phps/insert_book_new.php', true);
       //var filename = $('input[type=file]').val().replace(/C:\\fakepath\\/i, '')
+
       xhr.upload.onprogress = function (e) {
           if (e.lengthComputable) {
               var percentComplete = (e.loaded / e.total) * 100;
               console.log(percentComplete + '% uploaded');
               if (percentComplete == 100) {
+                  $scope.$emit('book_inserted', JSON.parse(window.localStorage.getItem("book_info")));
+                  $scope.$broadcast('book_inserted', JSON.parse(window.localStorage.getItem("book_info")));
+
                   $scope.loading.hide();
                   var alertPopup = $ionicPopup.alert({
                       title: 'Sell Book',
@@ -1353,6 +1369,7 @@ angular.module('mobionicApp.controllers', [])
                   title: 'Insert Book',
                   template: 'Book not inserted, please try again'
               });
+              $("#insert_book").text('Submit');
           }
       }, 5000)
 
