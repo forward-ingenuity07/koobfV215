@@ -1746,7 +1746,7 @@ angular.module('mobionicApp.controllers', [])
         //var dataString = "name=" + window.localStorage.getItem("Name") + "&email=" + window.localStorage.getItem("email") + "&province=" + window.localStorage.getItem("province") + "&image=" + filename + "&insert=1";
 
         // These extra params aren't necessary but show that you can include other data.
-        $scope.done1 = '0';
+        var done1 = '0';
         var xhr = new XMLHttpRequest();
         xhr.open('POST', 'http://forwardingenuity.com/phps/update_new.php', true);
         //var filename = $('input[type=file]').val().replace(/C:\\fakepath\\/i, '')
@@ -1760,7 +1760,7 @@ angular.module('mobionicApp.controllers', [])
                     title: 'Edit Book',
                     template: 'Changes made successfully :)'
                 });
-                $scope.done1 = '1';
+                done1 = '1';
                 $scope.closeUpdate();
                 }
             }
@@ -1770,15 +1770,17 @@ angular.module('mobionicApp.controllers', [])
 
         };
         xhr.send(fd);
-        if($scope.done1=='0'){
+        
             $timeout(function () {
-                $scope.loading.hide();
-                var alertPopup = $ionicPopup.alert({
-                    title: 'Edit Book',
-                    template: 'Changes not made, please try again'
-                });
+                if (done1 == '0') {
+                    $scope.loading.hide();
+                    var alertPopup = $ionicPopup.alert({
+                        title: 'Edit Book',
+                        template: 'Changes not made, please try again'
+                    });
+                }
             },5000)
-        }
+        
 
 
 
