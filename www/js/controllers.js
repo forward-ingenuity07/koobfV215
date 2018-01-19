@@ -1470,7 +1470,7 @@ angular.module('mobionicApp.controllers', [])
                       window.localStorage.setItem("username", response.data[i].username);
                       window.localStorage.setItem("id", response.data[i].id);
                       window.localStorage.setItem("stars", response.data[i].stars);
-                      window.plugins.OneSignal.sendTag("email", window.localStorage.getItem("email"));
+                      window.plugins.OneSignal.sendTag("email", response.data[i].email);
                       break;
                   }
                   else {
