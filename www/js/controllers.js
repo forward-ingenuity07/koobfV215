@@ -1471,7 +1471,7 @@ angular.module('mobionicApp.controllers', [])
                       window.localStorage.setItem("id", response.data[i].id);
                       window.localStorage.setItem("stars", response.data[i].stars);
                       window.plugins.OneSignal.sendTag("email", response.data[i].email);
-                      window.plugins.OneSignal.sendTag("number", response.data[i].id);
+                      window.plugins.OneSignal.sendTags({email:response.data[i].email,number:response.data[i].number});
                       break;
                   }
                   else {
