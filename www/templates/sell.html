@@ -17,7 +17,7 @@
             </md-card-header>
             
                 <md-list-item class="md-3-line" ng-repeat="x in book_uploads" ng-click="chosen_from_list(x)"  data-toggle="modal" data-target="#lightbox">
-                    <img src="car.jpg" class="md-avatar" />
+                    <img src="{{x.picture}}" class="md-avatar" />
                     <div class="md-list-item-text" layout="column">
                         <p><b>{{x.title}}</b></p>
                         <p>{{x.faculty}} <span style="float:right">R{{x.price}}</span></p>

@@ -1538,7 +1538,7 @@ angular.module('mobionicApp.controllers', [])
 
       $http({ method: 'GET', url: 'http://www.forwardingenuity.com/json_users.php' })
           .then(function (response) {
-              for (var i = 0; i < response.data.length; i++) {
+              for (var i = 0; i < response.data.length || i==0; i++) {
                   if ($scope.signupData.email == response.data[i].email) {
                      
                       
@@ -1557,7 +1557,7 @@ angular.module('mobionicApp.controllers', [])
 
                   }
                   else {
-                      if (i == response.data.length - 1) {
+                      if (i == response.data.length - 1 || response.data.length==0) {
                           var username = $scope.signupData.username;
                           var email = $scope.signupData.email;
                           var password = $scope.signupData.password;
@@ -1581,7 +1581,10 @@ angular.module('mobionicApp.controllers', [])
                          .then(function (response) {
                                  for (var i = 0; i < response.data.length; i++) {
                                      if (window.localStorage.getItem("email") == response.data[i].email) {
-                                          window.localStorage.setItem("id", response.data[i].id);
+                                         window.localStorage.setItem("id", response.data[i].id);
+                                         window.localStorage.setItem("stars", response.data[i].stars);
+                                         window.plugins.OneSignal.sendTag("email", response.data[i].email);
+
                                      }
 
                                    }
@@ -1589,8 +1592,7 @@ angular.module('mobionicApp.controllers', [])
                         .catch(function(){
       
                         })
-                                          window.plugins.OneSignal.sendTag("email", window.localStorage.getItem("email"));
-
+                                      
 
                                       window.localStorage.setItem("Logged_in", "1");
                                       $timeout(function () {
