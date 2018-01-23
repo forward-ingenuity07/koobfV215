@@ -5,25 +5,28 @@
     </ion-nav-buttons>
 
     <ion-content class="has-header">
-        <ion-tabs class="tabs-icon-only">
-            <ion-tab title="Home" icon-on="ion-home" icon-off="ion-home">
+       
+        <!--
                 <div class="list">
                     <a id="{{new.id}}" name="{{new.title}}" class="item" ng-click="thread_chosen()" ng-repeat="new in contacted">
                     <!--    <img ng-src="{{new.picture}}" alt="{{new.title}}">
-                        -->
+                        
                         <h2>{{new.title}}</h2>
                         <p>{{new.lastMessage}}</p>
                     
                     </a>
                 </div>
-            </ion-tab>
-            <ion-tab title="Comments" icon-on="ion-chatboxes" icon-off="ion-chatboxes">
-                <div class="padding"><strong>[Comments]</strong> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
-            </ion-tab>
-            <ion-tab title="Settings" icon-on="ion-gear-b" icon-off="ion-gear-b">
-                <div class="padding"><strong>[Settings]</strong> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
-            </ion-tab>
-        </ion-tabs>
+            -->
+
+        <md-list-item class="md-3-line" id="{{new.id}}" name="{{new.title}}" ng-click="thread_chosen()" ng-repeat="new in contacted">
+            <img src="money_eyes.png" class="md-avatar" />
+            <div class="md-list-item-text" layout="column">
+                <p><b>{{new.title}}</b></p>
+                <p>{{new.lastMessage}}</p>
+                <!-- <p><i class="fa fa-tag fa"></i><i><span ng-repeat="tag in x.tags">{{tag}}{{$last ? '' : ', '}}</span></i></p>-->
+            </div>
+        </md-list-item>
+
 
     </ion-content>
 </ion-view>

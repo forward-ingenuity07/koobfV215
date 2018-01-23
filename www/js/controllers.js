@@ -153,7 +153,7 @@ angular.module('mobionicApp.controllers', [])
        
        
     }
-    
+    window.localStorage.removeItem("contacteds");
     $scope.thread_chosen = function () {
         window.localStorage.setItem("target_user", event.target.id);
         window.localStorage.setItem("target_book", event.target.name);
@@ -166,7 +166,6 @@ angular.module('mobionicApp.controllers', [])
         $scope.modal_message.hide();
     }
     
-
    
 
         $scope.hideTime = true;
@@ -175,7 +174,7 @@ angular.module('mobionicApp.controllers', [])
           isIOS = ionic.Platform.isWebView() && ionic.Platform.isIOS();
 
         $scope.sendMessage = function () {
-            
+
             var d = new Date();
             d = d.toLocaleTimeString().replace(/:\d+ /, ' ');
          //   var user_id = window.localStorage.getItem("user_id");
@@ -185,11 +184,20 @@ angular.module('mobionicApp.controllers', [])
             if (window.localStorage.getItem("contacteds") != null) {
                 var contacteds = [{}];
                 contacteds = JSON.parse(window.localStorage.getItem("contacteds"));
-                contacteds.push({
-                    id:window.localStorage.getItem("target_user"),
-                    title: window.localStorage.getItem("target_book"),
-                    lastMessage: message
-                })
+                for (var i = 0; i < contacteds.length; i++) {
+                    if (contacteds[i].id == window.localStorage.getItem("target_user") && contacteds[i].title == window.localStorage.getItem("target_book")) {
+                        contacteds[i].lastMessage = message;
+                        break;
+                    }
+                    else if (i == contacteds.length - 1 && (contacteds[i].id != window.localStorage.getItem("target_user") || contacteds[i].title != window.localStorage.getItem("target_book"))) {
+                        contacteds.push({
+                            id: window.localStorage.getItem("target_user"),
+                            title: window.localStorage.getItem("target_book"),
+                            lastMessage: message
+                        })
+                    }
+                }
+                
                
                 window.localStorage.setItem("contacteds", JSON.stringify(contacteds));
                 $scope.$apply();
@@ -201,14 +209,14 @@ angular.module('mobionicApp.controllers', [])
                     title: window.localStorage.getItem("target_book"),
                     lastMessage: message
                 });
-                if ($scope.contacted!=null){
+            /*    if ($scope.contacted!=null){
                 $scope.contacted.push({
                     id: window.localStorage.getItem("target_user"),
                     title: window.localStorage.getItem("target_book"),
                     lastMessage: message
                 });
                     $scope.$apply();
-                }
+                }*/
                 window.localStorage.setItem("contacteds", JSON.stringify(contacteds));
                 $scope.$apply();
                 
@@ -1697,7 +1705,7 @@ angular.module('mobionicApp.controllers', [])
         var code = $scope.BookRequestData.ModuleCode;
         var e = document.getElementById("faculty_chosen");
         var faculty = e.options[e.selectedIndex].value;
-        var year = $("input[name='year']:checked").val();
+        var year = $scope.year_chosen;
         var user_id=window.localStorage.getItem("id");
         var dataString = "title=" + title + "&code=" + code + "&faculty=" + faculty + "&year=" + year + "&user_id=" + user_id + "&insert=";
         $.ajax({
