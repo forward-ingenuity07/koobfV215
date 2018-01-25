@@ -80,8 +80,10 @@ document.addEventListener('deviceready', function () {
     // window.plugins.OneSignal.setLogLevel({logLevel: 4, visualLevel: 4});
 
     var notificationOpenedCallback = function (jsonData) {
-        console.log('notificationOpenedCallback: ' + JSON.stringify(jsonData));
+       // console.log('notificationOpenedCallback: ' + JSON.stringify(jsonData));
+       
         var message = JSON.stringify(jsonData);
+        alert(message);
         if (message.includes("A book has been added with a percentage match of")) {
             location.href = "#/app/news";
         }
