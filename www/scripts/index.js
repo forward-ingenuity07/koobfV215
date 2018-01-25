@@ -82,7 +82,13 @@ document.addEventListener('deviceready', function () {
     var notificationOpenedCallback = function (jsonData) {
        // console.log('notificationOpenedCallback: ' + JSON.stringify(jsonData));
         //var message = JSON.stringify(jsonData);
-        
+        angular.module('mobionicApp.controllers', [])
+.controller('notifications', function () {
+    $scope.$emit('book_request_notification', [1, 2, 3]);
+    $scope.$broadcast('book_request_notification', [1, 2, 3]);
+
+
+})
         if (jsonData.notification.payload.additionalData.type=="book_match") {
             window.localStorage.setItem("book_request_received", "1");
             window.localStorage.setItem("book_request_name", jsonData.notification.payload.additionalData.book_name)
