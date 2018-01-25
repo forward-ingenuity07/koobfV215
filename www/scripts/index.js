@@ -84,7 +84,7 @@ document.addEventListener('deviceready', function () {
         //var message = JSON.stringify(jsonData);
         
         if (jsonData.notification.payload.additionalData.type=="book_match") {
-            location.href = "#/app/news";
+            location.href = "#/app/news/" + jsonData.notification.payload.additionalData.book_id;
         }
         
        
