@@ -97,6 +97,13 @@ document.addEventListener('deviceready', function () {
       .handleNotificationOpened(notificationOpenedCallback)
       .endInit();
 
+    if (typeof analytics !== "undefined") {
+        analytics.startTrackerWithId("UA-113062402-1");
+
+    }
+    else {
+        console.log("Google analytics not started");
+    }
     // Call syncHashedEmail anywhere in your app if you have the user's email.
     // This improves the effectiveness of OneSignal's "best-time" notification scheduling feature.
     // window.plugins.OneSignal.syncHashedEmail(userEmail);
