@@ -37,22 +37,28 @@ angular.module('mobionicApp.controllers', [])
     });
 
     if (window.localStorage.getItem("book_request_received") == "1") {
-        NewsData.async().then(
-        // successCallback
-        function () {
-            $scope.news = NewsData.getAll();
-            $ionicLoading.hide();
-            $scope.$apply();
-        },
-        // errorCallback 
-        function () {
-            $scope.news = NewsStorage.all();
-            $scope.storage = 'Data from local storage';
-            $ionicLoading.hide();
-        },
-        // notifyCallback
-        function () { }
-    );
+        $scope.$emit('book_request_received', [1, 2, 3]);
+        $scope.$broadcast('book_request_received', [1, 2, 3]);
+        $scope.$on('book_request_received', function (event, data) {
+            NewsData.async().then(
+       // successCallback
+       function () {
+           $scope.news = NewsData.getAll();
+           $ionicLoading.hide();
+           $scope.$apply();
+       },
+       // errorCallback 
+       function () {
+           $scope.news = NewsStorage.all();
+           $scope.storage = 'Data from local storage';
+           $ionicLoading.hide();
+       },
+       // notifyCallback
+       function () { }
+   );
+        });
+
+      
         var title_request = window.localStorage.getItem("book_request_name");
         title_request = title_request.toUpperCase();
         var alertPopup = $ionicPopup.alert({
