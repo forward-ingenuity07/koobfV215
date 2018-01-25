@@ -81,9 +81,16 @@ document.addEventListener('deviceready', function () {
 
     var notificationOpenedCallback = function (jsonData) {
        // console.log('notificationOpenedCallback: ' + JSON.stringify(jsonData));
-       
+        var position=0;
         //var message = JSON.stringify(jsonData);
-        var message = jsonData.body;
+        for (var i; i < jsonData.length; i++) {
+            if (jsonData[i].body != null) {
+                position = i;
+                break;
+            }
+
+        }
+        var message = jsonData[position].body;
         alert(message);
         if (message.includes("A book has been added with a percentage match of")) {
             location.href = "#/app/news";
