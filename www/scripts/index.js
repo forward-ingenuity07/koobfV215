@@ -84,10 +84,12 @@ document.addEventListener('deviceready', function () {
         //var message = JSON.stringify(jsonData);
         
         if (jsonData.notification.payload.additionalData.type=="book_match") {
-            location.href = "#/app/news/" + jsonData.notification.payload.additionalData.book_id;
+            window.localStorage.setItem("book_request_received", "1");
+            window.localStorage.setItem("book_request_name", jsonData.notification.payload.additionalData.book_name)
+            location.href = "#/app/news"
+
         }
-        
-       
+
     };
 
     window.plugins.OneSignal
