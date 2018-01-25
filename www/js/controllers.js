@@ -17,7 +17,7 @@ angular.module('mobionicApp.controllers', [])
     if (window.localStorage.getItem("book_request_received") == "1") {
         var alertPopup = $ionicPopup.alert({
             title: 'Book request',
-            template: 'A book titled '+  window.localStorage.getItem("book_request_name")+' has been uploaded and can be found by pressing the search button above and typing in the title'
+            template: 'A book titled <b>'+  window.localStorage.getItem("book_request_name")+'</b> has been uploaded and can be found by pressing the search button above and typing in the title'
         });
         window.localStorage.setItem("book_request_received", "0");
     }

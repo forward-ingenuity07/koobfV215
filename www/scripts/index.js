@@ -85,7 +85,7 @@ document.addEventListener('deviceready', function () {
         
         if (jsonData.notification.payload.additionalData.type=="book_match") {
             window.localStorage.setItem("book_request_received", "1");
-            window.localStorage.setItem("book_request_name", jsonData.notification.payload.additionalData.book_name)
+            window.localStorage.setItem("book_request_name", (jsonData.notification.payload.additionalData.book_name).toUpperCase())
             location.href = "#/app/news"
 
         }
