@@ -15,11 +15,13 @@ angular.module('mobionicApp.controllers', [])
 // News Controller
 .controller('NewsCtrl', function($scope,$filter,$window, $ionicLoading, NewsData,$ionicPopup, $ionicScrollDelegate, NewsStorage) {
     if (window.localStorage.getItem("book_request_received") == "1") {
+        var title_request = window.localStorage.getItem("book_request_name");
+        title_request = title_request.toUpperCase();
         var alertPopup = $ionicPopup.alert({
             title: 'Book request',
-            template: 'A book titled '+  window.localStorage.getItem("book_request_name")+' has been uploaded and can be found by pressing the search button above and typing in the title'
+            template: 'A book titled <b>' + title_request + '</b> has been uploaded and can be found by pressing the search button above and typing in the title'
         });
-        window.localStorage.setItem("book_request_received","0");
+        window.localStorage.setItem("book_request_received", "0");
     }
     $scope.news = [];
     $scope.storage = '';
