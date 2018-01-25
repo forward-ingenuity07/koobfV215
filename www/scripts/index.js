@@ -96,7 +96,7 @@ document.addEventListener('deviceready', function () {
       .startInit("f726f088-5d47-42e1-bf68-6c293302ecb3")
       .handleNotificationOpened(notificationOpenedCallback)
       .endInit();
-
+    var analytics = window.ga;
     if (typeof analytics !== "undefined") {
         analytics.startTrackerWithId("UA-113062402-1");
 

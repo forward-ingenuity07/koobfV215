@@ -1198,7 +1198,7 @@ angular.module('mobionicApp.controllers', [])
 
 .controller('AppCtrl', function ($scope, $ionicLoading, SettingsData, $ionicModal, $timeout, $ionicPopup, MenuData, $http, $ionicActionSheet, $ionicPlatform) {
     $scope.settings = SettingsData.items;
-    
+    var analytics = window.ga;
     if (typeof analytics !== "undefined") {
         analytics.trackView("Tracking the view");
 
