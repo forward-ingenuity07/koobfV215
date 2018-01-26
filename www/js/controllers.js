@@ -1198,11 +1198,15 @@ angular.module('mobionicApp.controllers', [])
 
 .controller('AppCtrl', function ($scope, $ionicLoading, SettingsData, $ionicModal, $timeout, $ionicPopup, MenuData, $http, $ionicActionSheet, $ionicPlatform) {
     $scope.settings = SettingsData.items;
-   
-    window.ga.trackView('In app')
-
-
-   
+    /*var analytics = window.ga;
+    if (typeof analytics !== "undefined") {
+        */
+        window.ga.trackView("Tracking the view");
+    /*
+    }
+    else {
+        console.log("Google analytics not started");
+    }*/
   $scope.items = MenuData.items;
   $scope.profileMenu = MenuData.profileMenu;
   $scope.$on('change_event', function (event, mass) {

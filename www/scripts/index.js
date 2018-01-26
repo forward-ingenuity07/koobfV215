@@ -76,8 +76,11 @@ function getIds() {
 // For Intel XDK and please add this to your app.js.
 
 document.addEventListener('deviceready', function () {
+    window.ga.startTrackerWithId('UA-113062402-1')
+
     // Enable to debug issues.
     // window.plugins.OneSignal.setLogLevel({logLevel: 4, visualLevel: 4});
+   
 
     var notificationOpenedCallback = function (jsonData) {
        // console.log('notificationOpenedCallback: ' + JSON.stringify(jsonData));
@@ -96,8 +99,16 @@ document.addEventListener('deviceready', function () {
       .startInit("f726f088-5d47-42e1-bf68-6c293302ecb3")
       .handleNotificationOpened(notificationOpenedCallback)
       .endInit();
-    window.ga.startTrackerWithId('UA-113062402-1')
+ /*   
+    var analytics = window.ga;
+    if (typeof analytics !== "undefined") {
+   */
 
+    /*
+    }
+    else {
+        console.log("Google analytics not started");
+    }*/
     // Call syncHashedEmail anywhere in your app if you have the user's email.
     // This improves the effectiveness of OneSignal's "best-time" notification scheduling feature.
     // window.plugins.OneSignal.syncHashedEmail(userEmail);
