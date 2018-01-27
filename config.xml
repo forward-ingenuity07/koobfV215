@@ -8,6 +8,7 @@
   <allow-intent href="http://*/*" />
   <allow-intent href="https://*/*" />
   <access origin="http://www.forwardingenuity.com *" />
+  <access origin="https://*/*" />
   <access origin="http://www.forwardingenuity.com/competitions.php" />
   <allow-intent href="tel:*" />
   <allow-intent href="sms:*" />
