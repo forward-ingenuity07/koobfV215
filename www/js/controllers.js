@@ -1200,7 +1200,7 @@ angular.module('mobionicApp.controllers', [])
     $scope.settings = SettingsData.items;
     /*var analytics = window.ga;
     if (typeof analytics !== "undefined") {
-        */
+        
         window.ga.trackView("Tracking the view");
     /*
     }
