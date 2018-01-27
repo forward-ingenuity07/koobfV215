@@ -403,6 +403,8 @@ angular.module('mobionicApp.controllers', [])
 // Products Controller
 .controller('ProductsCtrl', function($scope, $ionicLoading, $http, $interval,MenuData, ProductsData, SettingsData, ProductsStorage) {
     $scope.products = [];
+
+    
     $scope.storage = '';
     $scope.place=[];
     $scope.$emit('change_event', [1, 2, 3]);
@@ -590,7 +592,9 @@ angular.module('mobionicApp.controllers', [])
 .controller('ProductCtrl', function($scope, $stateParams, ProductsData) {
     
     $scope.product = ProductsData.get($stateParams.productId);
-    
+
+    ga('send', { 'hitType': 'event', 'eventCategory': 'Accommodation', 'eventAction': $scope.product.title, 'eventLabel': 'myLabel' });
+
 })
 
     .controller('messagesCtrl', function ($scope, $http) {
