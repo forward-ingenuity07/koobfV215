@@ -593,7 +593,7 @@ angular.module('mobionicApp.controllers', [])
     
     $scope.product = ProductsData.get($stateParams.productId);
 
-    ga('send', { 'hitType': 'event', 'eventCategory': 'Accommodation', 'eventAction': $scope.product.title, 'eventLabel': 'myLabel' });
+   // ga('send', { 'hitType': 'event', 'eventCategory': 'Accommodation', 'eventAction': $scope.product.title, 'eventLabel': 'myLabel' });
 
 })
 
@@ -1201,6 +1201,7 @@ angular.module('mobionicApp.controllers', [])
 })
 
 .controller('AppCtrl', function ($scope, $ionicLoading, SettingsData, $ionicModal, $timeout, $ionicPopup, MenuData, $http, $ionicActionSheet, $ionicPlatform) {
+    window.ga.trackEvent('Ready', 'Action', 'Label')
     $scope.settings = SettingsData.items;
 
 

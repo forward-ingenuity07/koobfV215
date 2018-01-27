@@ -77,4 +77,6 @@
   <plugin name="cordova-plugin-whitelist" version="1.3.3" />
   <plugin name="cordova-plugin-file" version="4.3.3" />
   <plugin name="onesignal-cordova-plugin" version="2.2.5" src="https://github.com/OneSignal/OneSignal-Cordova-SDK" />
+  <plugin name="cordova-plugin-firebase" version="0.1.25" />
+  <plugin name="cordova-plugin-google-analytics" version="1.8.3" src="https://github.com/danwilson/google-analytics-plugin" />
 </widget>

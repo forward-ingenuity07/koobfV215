@@ -76,7 +76,8 @@ function getIds() {
 // For Intel XDK and please add this to your app.js.
 
 document.addEventListener('deviceready', function () {
-   // console.log(ga.q)
+    window.ga.startTrackerWithId('UA-113062402-1');
+    // console.log(ga.q)
     // Enable to debug issues.
     // window.plugins.OneSignal.setLogLevel({logLevel: 4, visualLevel: 4});
    
