@@ -1198,6 +1198,7 @@ angular.module('mobionicApp.controllers', [])
 
 .controller('AppCtrl', function ($scope, $ionicLoading, SettingsData, $ionicModal, $timeout, $ionicPopup, MenuData, $http, $ionicActionSheet, $ionicPlatform) {
     $scope.settings = SettingsData.items;
+    window.FirebasePlugin.logEvent("select_content", { content_type: "page_view", item_id: "home" });
     /*var analytics = window.ga;
     if (typeof analytics !== "undefined") {
         
