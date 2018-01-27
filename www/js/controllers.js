@@ -1201,7 +1201,7 @@ angular.module('mobionicApp.controllers', [])
 })
 
 .controller('AppCtrl', function ($scope, $ionicLoading, SettingsData, $ionicModal, $timeout, $ionicPopup, MenuData, $http, $ionicActionSheet, $ionicPlatform) {
-    window.ga.trackEvent('Ready', 'Action', 'Label')
+
     $scope.settings = SettingsData.items;
 
 

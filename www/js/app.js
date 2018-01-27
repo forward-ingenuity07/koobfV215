@@ -8,7 +8,7 @@ angular.module('mobionicApp', ['ionic', 'mobionicApp.controllers', 'mobionicApp.
 .run(function($ionicPlatform) {
     $ionicPlatform.ready(function () {
 
-        window.ga.startTrackerWithId('UA-113062402-1');
+        
          
 
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
