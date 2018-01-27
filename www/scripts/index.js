@@ -76,7 +76,67 @@ function getIds() {
 // For Intel XDK and please add this to your app.js.
 
 document.addEventListener('deviceready', function () {
-   /* (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date(); a = s.createElement(o),
+        m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+    var fields = {
+        // note: you can use a single tracking id for both the app and the website,
+        // don't worry it won't mix the data. More about this in the 3rd section
+        trackingId: 'UA-113062402-1'
+    };
+
+    // if we are in the app (the protocol will be file://)
+    if (document.URL.indexOf('http://') !== 0) {
+
+        // we store and provide the clientId ourselves in localstorage since there are no
+        // cookies in Cordova
+        fields.clientId = localStorage.getItem('ga:clientId');
+        // disable GA's cookie storage functions
+        fields.storage = 'none';
+
+        ga('create', fields);
+
+        // prevent tasks that would abort tracking
+        ga('set', {
+            // don't abort if the protocol is not http(s)
+            checkProtocolTask: null,
+            // don't expect cookies to be enabled
+            checkStorageTask: null
+        });
+
+        // a callback function to get the clientId and store it ourselves
+        ga(function (tracker) {
+            localStorage.setItem('ga:clientId', tracker.get('clientId'));
+        });
+
+        // send a screenview event
+        ga('send', {
+            // these are the three required properties, check GA's doc for the optional ones
+            hitType: 'screenview',
+            // you can edit these two values as you wish
+            screenName: '/index.html',
+            appName: 'Forbooks'
+        });
+    }
+        // if we are in a browser
+    else {
+
+        ga('create', fields);
+
+        // send a pageview event
+        ga('send', {
+            // this is required, there are optional properties too if you want them
+            hitType: 'pageview'
+        });
+    }
+
+
+
+    /* (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
 m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
