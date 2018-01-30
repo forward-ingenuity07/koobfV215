@@ -162,12 +162,12 @@ angular.module('mobionicApp.controllers', [])
     });
     */
     $scope.book_contact = function (event) {
-        window.localStorage.setItem("target_user", event.id);
+        window.localStorage.setItem("target_user", event.uploader);
         window.localStorage.setItem("target_book", event.title);
         var contact_list = JSON.parse(window.localStorage.getItem("contacteds"));
         if(contact_list != null){
         for (var i = 0; i < contact_list.length; i++) {
-            if (contact_list[i].title == event.title && contact_list[i].id == event.id) {
+            if (contact_list[i].title == event.title && contact_list[i].id == event.uploader) {
                 $scope.messages = contact_list[i].messageThread;
             }
         }
@@ -193,11 +193,11 @@ angular.module('mobionicApp.controllers', [])
        
     }
       $scope.thread_chosen = function (event) {
-        window.localStorage.setItem("target_user", event.id);
+        window.localStorage.setItem("target_user", event.uploader);
         window.localStorage.setItem("target_book", event.title);
        var contact_list = JSON.parse(window.localStorage.getItem("contacteds"));
         for (var i = 0; i < contact_list.length; i++) {
-            if(contact_list[i].title==event.title && contact_list[i].id==event.id){
+            if(contact_list[i].title==event.title && contact_list[i].id==event.uploader){
                 $scope.messages = contact_list[i].messageThread;
             }
         }
