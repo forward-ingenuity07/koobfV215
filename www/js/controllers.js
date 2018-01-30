@@ -146,7 +146,7 @@ angular.module('mobionicApp.controllers', [])
     },1000)
     $scope.contacted = JSON.parse(window.localStorage.getItem("contacteds"));
     
-
+    
     $ionicModal.fromTemplateUrl('templates/tabs2.html', {
         id: 'messages',
         scope: $scope
@@ -162,9 +162,16 @@ angular.module('mobionicApp.controllers', [])
     });
     */
     $scope.book_contact = function (event) {
-        window.localStorage.setItem("target_user", event.target.id);
-        window.localStorage.setItem("target_book", event.target.name);
-        
+        window.localStorage.setItem("target_user", event.id);
+        window.localStorage.setItem("target_book", event.title);
+        var contact_list = JSON.parse(window.localStorage.getItem("contacteds"));
+        if(contact_list != null){
+        for (var i = 0; i < contact_list.length; i++) {
+            if (contact_list[i].title == event.title && contact_list[i].id == event.id) {
+                $scope.messages = contact_list[i].messageThread;
+            }
+        }
+        }
         $scope.Message_title = window.localStorage.getItem("target_book");
 
         $scope.loading = $ionicLoading.show({
@@ -185,12 +192,20 @@ angular.module('mobionicApp.controllers', [])
        
        
     }
-    window.localStorage.removeItem("contacteds");
-    $scope.thread_chosen = function () {
-        window.localStorage.setItem("target_user", event.target.id);
-        window.localStorage.setItem("target_book", event.target.name);
-        $scope.Message_title = event.target.name;
+      $scope.thread_chosen = function (event) {
+        window.localStorage.setItem("target_user", event.id);
+        window.localStorage.setItem("target_book", event.title);
+       var contact_list = JSON.parse(window.localStorage.getItem("contacteds"));
+        for (var i = 0; i < contact_list.length; i++) {
+            if(contact_list[i].title==event.title && contact_list[i].id==event.id){
+                $scope.messages = contact_list[i].messageThread;
+            }
+        }
+        $scope.Message_title = event.title;
+       
         $scope.modal_message.show();
+        $scope.$apply();
+
     }
 
     $scope.close_messages = function () {
@@ -219,14 +234,48 @@ angular.module('mobionicApp.controllers', [])
                 for (var i = 0; i < contacteds.length; i++) {
                     if (contacteds[i].id == window.localStorage.getItem("target_user") && contacteds[i].title == window.localStorage.getItem("target_book")) {
                         contacteds[i].lastMessage = message;
+                        if (typeof contacteds[i].messageThread == 'undefined') {
+                            contacteds[i].messageThread = [{
+                                userId: window.localStorage.getItem("target_user"),
+                                text: $scope.data.message,
+                                time: d,
+                                float: 'left',
+                                classify: 'mes',
+                                time: d
+                            }];
+                        }
+                        else {
+
+                            (contacteds[i].messageThread).push({
+                                userId: window.localStorage.getItem("target_user"),
+                                text: $scope.data.message,
+                                time: d,
+                                float: 'left',
+                            classify: 'mes',
+                            time: d
+                            });
+
+
+                        }
+                        
                         break;
                     }
                     else if (i == contacteds.length - 1 && (contacteds[i].id != window.localStorage.getItem("target_user") || contacteds[i].title != window.localStorage.getItem("target_book"))) {
                         contacteds.push({
                             id: window.localStorage.getItem("target_user"),
                             title: window.localStorage.getItem("target_book"),
-                            lastMessage: message
+                            lastMessage: message,
+                            
+                            messageThread: [{
+                                userId: window.localStorage.getItem("target_user"),
+                                text: $scope.data.message,
+                                float: 'left',
+                                classify: 'mes',
+                                time: d
+
+                            }]
                         })
+                      //  contacteds[contacteds.length - 1].messageThread.push(message);
                     }
                 }
                 
@@ -309,7 +358,7 @@ angular.module('mobionicApp.controllers', [])
             
 
 
-            var dataStr = "party1=" + window.localStorage.getItem("id") + "&party2=" + window.localStorage.getItem("target_user") + "&message=" + message + "&time=" + d;
+            var dataStr = "party1=" + window.localStorage.getItem("id") + "&party2=" + window.localStorage.getItem("target_user") + "&title=" + window.localStorage.getItem("target_book") + "&message=" + message + "&time=" + d;
             var url3 = "http://www.forwardingenuity.com/ins_message.php";
             $.ajax({
                 type: "POST",                                           //method
@@ -1203,8 +1252,6 @@ angular.module('mobionicApp.controllers', [])
 .controller('AppCtrl', function ($scope, $ionicLoading, SettingsData, $ionicModal, $timeout, $ionicPopup, MenuData, $http, $ionicActionSheet, $ionicPlatform) {
     $scope.settings = SettingsData.items;
 
-
-    
   $scope.items = MenuData.items;
   $scope.profileMenu = MenuData.profileMenu;
   $scope.$on('change_event', function (event, mass) {

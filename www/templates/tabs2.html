@@ -11,17 +11,14 @@
                  on-swipe-right="hideTime = true">
 
 
-        <ion-tabs class="tabs-icon-only">
-            
-            <ion-tab title="Comments" icon-on="ion-chatboxes" icon-off="ion-chatboxes">
-                <div class="padding">
+            <div class="padding">
 
-                    <div style="float:left; font-size:22px;" ng-repeat="message in messages"
+                    <div style="float:{{message.float}}; font-size:22px;" ng-repeat="message in messages"
                          ng-class="{other: message.userId != myId}"
                          class="messages">
 
                         <div class="message" ng-class="{'slide-right': hideTime, '': !hideTime}">
-                            <span class="mes">{{ message.text }}</span>
+                            <span ng-class="message.classify">{{ message.text }}</span>
                         </div>
 
                         <div class="time" ng-class="{'slide-right': hideTime, '': !hideTime}" style="font-size:10px;">{{message.time}}</div>
@@ -30,9 +27,7 @@
 
 
                 </div>
-            </ion-tab>
             
-        </ion-tabs>
 
 
 
