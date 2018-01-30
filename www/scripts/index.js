@@ -168,27 +168,54 @@ ga('send', 'pageview');
         }
 
         else if (jsonData.notification.payload.additionalData.type == "incoming_message") {
+            function message_received() {
+                var contact_list = JSON.parse(window.localStorage.getItem("contacteds"));
+                if (contact_list != null) {
+                    for (var i = 0; i < contact_list.length; i++) {
+                        if (contact_list[i].title == jsonData.notification.payload.additionalData.title && contact_list[i].id == jsonData.notification.payload.additionalData.from) {
+                            (contact_list[i].messageThread).push({
+                                userId: window.localStorage.getItem("id"),
+                                text: jsonData.notification.payload.additionalData.message,
+                                float: 'right',
+                                classify: 'mes2'
+                            })
+                        }
 
-            var contact_list = JSON.parse(window.localStorage.getItem("contacteds"));
-            if (contact_list != null) {
-                for (var i = 0; i < contact_list.length; i++) {
-                    if (contact_list[i].title == jsonData.notification.payload.additionalData.type && contact_list[i].id == jsonData.notification.payload.additionalData.from) {
-                        (contact_list[i].messageThread).push({
-                            userId: window.localStorage.getItem("id"),
-                            text: $scope.data.message,
-                            float: 'right',
-                            classify: 'mes2'        
+                        else if (i == contact_list.length - 1 && (contact_list[i].id != jsonData.notification.payload.additionalData.from || contact_list[i].title != jsonData.notification.payload.additionalData.title)) {
+                            contact_list.push({
+                                userId: window.localStorage.getItem("id"),
+                                title: window.localStorage.getItem("target_book"),
+                                lastMessage: message,
 
+                                messageThread: [{
+                                    userId: window.localStorage.getItem("id"),
+                                    text: jsonData.notification.payload.additionalData.message,
+                                    float: 'right',
+                                    classify: 'mes2',
+                                    time: d
 
-                        })
+                                }]
+                            })
+                            //  contacteds[contacteds.length - 1].messageThread.push(message);
+                        }
                     }
                 }
+
+                else {
+                    var contact_list = [{
+                        userId: window.localStorage.getItem("id"),
+                        text: jsonData.notification.payload.additionalData.message,
+                        float: 'right',
+                        classify: 'mes2'
+
+                    }]
+
+                }
+                window.localStorage.setItem("contacteds", JSON.stringify(contact_list));
+                return "#/app/messages";
             }
-
-            window.localStorage.setItem("book_request_received", "1");
-            window.localStorage.setItem("book_request_name", jsonData.notification.payload.additionalData.book_name)
-            location.href = "#/app/messages"
-
+            
+            location.href = message_received();
         }
 
     };
