@@ -193,11 +193,11 @@ angular.module('mobionicApp.controllers', [])
        
     }
       $scope.thread_chosen = function (event) {
-        window.localStorage.setItem("target_user", event.target.id);
-        window.localStorage.setItem("target_book", event.target.name);
+        window.localStorage.setItem("target_user", event.uploader);
+        window.localStorage.setItem("target_book", event.title);
        var contact_list = JSON.parse(window.localStorage.getItem("contacteds"));
         for (var i = 0; i < contact_list.length; i++) {
-            if(contact_list[i].title==event.target.name && contact_list[i].id==event.target.id){
+            if(contact_list[i].title==event.title && contact_list[i].id==event.uploader){
                 $scope.messages = contact_list[i].messageThread;
             }
         }
