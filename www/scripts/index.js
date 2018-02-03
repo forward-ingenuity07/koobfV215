@@ -223,10 +223,16 @@ ga('send', 'pageview');
                     contact_list.push({
                         id: JSON.parse(jsonData.notification.payload.additionalData.from),
                         title: JSON.parse(jsonData.notification.payload.additionalData.title),
-                        lastMessage: JSON.parse(jsonData.notification.payload.additionalData.message)
+                        lastMessage: JSON.parse(jsonData.notification.payload.additionalData.message),
+                        messageThread:{
+                            userId: window.localStorage.getItem("id"),
+                            text: JSON.parse(jsonData.notification.payload.additionalData.message),
+                            float: 'right',
+                            classify: 'mes2'
+                    }
                     })
 
-                    if (typeof contact_list.messageThread != 'undefined') {
+             /*       if (typeof contact_list[0].messageThread != 'undefined') {
                         contact_list[0].messageThread.push({
                             userId: window.localStorage.getItem("id"),
                             text: JSON.parse(jsonData.notification.payload.additionalData.message),
@@ -243,7 +249,7 @@ ga('send', 'pageview');
                             classify: 'mes2'
                         });
 
-                    }
+                    }*/
                     window.localStorage.setItem("contacteds", JSON.stringify(contact_list));
                 }
                 else {
@@ -251,8 +257,13 @@ ga('send', 'pageview');
                     contact_list[0] = {
                         id: JSON.parse(jsonData.notification.payload.additionalData.from),
                         title: JSON.parse(jsonData.notification.payload.additionalData.title),
-                        lastMessage: JSON.parse(jsonData.notification.payload.additionalData.message)
-    
+                        lastMessage: JSON.parse(jsonData.notification.payload.additionalData.message),
+                        messageThread: {
+                            userId: window.localStorage.getItem("id"),
+                            text: JSON.parse(jsonData.notification.payload.additionalData.message),
+                            float: 'right',
+                            classify: 'mes2'
+                        }
                     }
                     contact_list[0].messageThread = {
                         userId: window.localStorage.getItem("id"),
