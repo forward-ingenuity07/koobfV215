@@ -168,7 +168,7 @@ ga('send', 'pageview');
         }
 
         else if (jsonData.notification.payload.additionalData.type == "incoming_message") {
-            function message_received() {
+          /*  function message_received() {
                 var contact_list = JSON.parse(window.localStorage.getItem("contacteds"));
                 if (contact_list != null) {
                     for (var i = 0; i < contact_list.length; i++) {
@@ -215,7 +215,8 @@ ga('send', 'pageview');
                 return "#/app/messages";
             }
             
-            location.href = message_received();
+            location.href = message_received();*/
+            location.href = '#/app/messages'
         }
 
     };
