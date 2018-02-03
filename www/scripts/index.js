@@ -216,7 +216,13 @@ ga('send', 'pageview');
             }
             
             location.href = message_received();*/
-            location.href = '#/app/messages'
+
+            function messege_received() {
+                
+                return '#/app/messages';
+            }
+
+            location.href = messege_received();
         }
 
     };
