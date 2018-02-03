@@ -217,7 +217,7 @@ ga('send', 'pageview');
             
             location.href = message_received();*/
 
-            function messege_received() {
+            
                 if (typeof window.localStorage.getItem("contacteds") != 'undefined') {
                     var contact_list = window.localStorage.getItem("contacteds");
                     contact_list.push({
@@ -251,6 +251,7 @@ ga('send', 'pageview');
 
                     }*/
                     window.localStorage.setItem("contacteds", JSON.stringify(contact_list));
+                    location.href = '#/app/messages';
                 }
                 else {
                     var contact_list = [{}];
@@ -272,12 +273,11 @@ ga('send', 'pageview');
                         classify: 'mes2'
                     }
                     window.localStorage.setItem("contacteds", JSON.stringify(contact_list));
-
+                    location.href = '#/app/messages';
                 }
-                return '#/app/messages';
-            }
+            
 
-            location.href = messege_received();
+                
         }
 
     };
