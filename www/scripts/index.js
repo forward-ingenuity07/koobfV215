@@ -218,7 +218,51 @@ ga('send', 'pageview');
             location.href = message_received();*/
 
             function messege_received() {
-                
+                if (typeof window.localStorage.getItem("contacteds") != 'undefined') {
+                    var contact_list = window.localStorage.getItem("contacteds");
+                    contact_list.push({
+                        id: JSON.parse(jsonData.notification.payload.additionalData.from),
+                        title: JSON.parse(jsonData.notification.payload.additionalData.title),
+                        lastMessage: JSON.parse(jsonData.notification.payload.additionalData.message)
+                    })
+
+                    if (typeof contact_list.messageThread != 'undefined') {
+                        contact_list[0].messageThread.push({
+                            userId: window.localStorage.getItem("id"),
+                            text: JSON.parse(jsonData.notification.payload.additionalData.message),
+                            float: 'right',
+                            classify: 'mes2'
+                        });
+
+                    }
+                    else {
+                        contact_list[0].messageThread.push({
+                            userId: window.localStorage.getItem("id"),
+                            text: JSON.parse(jsonData.notification.payload.additionalData.message),
+                            float: 'right',
+                            classify: 'mes2'
+                        });
+
+                    }
+                    window.localStorage.setItem("contacteds", JSON.stringify(contact_list));
+                }
+                else {
+                    var contact_list = [{}];
+                    contact_list[0] = {
+                        id: JSON.parse(jsonData.notification.payload.additionalData.from),
+                        title: JSON.parse(jsonData.notification.payload.additionalData.title),
+                        lastMessage: JSON.parse(jsonData.notification.payload.additionalData.message)
+    
+                    }
+                    contact_list[0].messageThread = {
+                        userId: window.localStorage.getItem("id"),
+                        text: JSON.parse(jsonData.notification.payload.additionalData.message),
+                        float: 'right',
+                        classify: 'mes2'
+                    }
+                    window.localStorage.setItem("contacteds", JSON.stringify(contact_list));
+
+                }
                 return '#/app/messages';
             }
 
