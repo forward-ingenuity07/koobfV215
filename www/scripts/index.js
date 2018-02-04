@@ -277,7 +277,7 @@ ga('send', 'pageview');
                 }
             
             */
-            var contact_list = {
+     /*       var contact_list = {
                 id: jsonData.notification.payload.additionalData.from,
                 title: jsonData.notification.payload.additionalData.title,
                 lastMessage: jsonData.notification.payload.additionalData.message,
@@ -290,7 +290,7 @@ ga('send', 'pageview');
             }
             window.localStorage.setItem("contacteds", JSON.stringify(contact_list));
             location.href = '#/app/messages';
-            
+       */     
 
 
 

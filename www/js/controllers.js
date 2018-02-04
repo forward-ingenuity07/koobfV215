@@ -189,8 +189,6 @@ angular.module('mobionicApp.controllers', [])
             $scope.modal_message.show();
 
         },100)
-       
-       
     }
       $scope.thread_chosen = function (event) {
         window.localStorage.setItem("target_user", event.uploader);
