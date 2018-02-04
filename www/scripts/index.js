@@ -217,7 +217,7 @@ ga('send', 'pageview');
             
             location.href = message_received();*/
 
-            
+            /*
                 if (typeof window.localStorage.getItem("contacteds") != 'undefined') {
                     var contact_list = window.localStorage.getItem("contacteds");
                     contact_list.push({
@@ -249,7 +249,7 @@ ga('send', 'pageview');
                             classify: 'mes2'
                         });
 
-                    }*/
+                    }
                     window.localStorage.setItem("contacteds", JSON.stringify(contact_list));
                     location.href = '#/app/messages';
                 }
@@ -276,8 +276,13 @@ ga('send', 'pageview');
                     location.href = '#/app/messages';
                 }
             
+            */
+            location.href = '#/app/messages';
+            
 
-                
+
+
+
         }
 
     };
