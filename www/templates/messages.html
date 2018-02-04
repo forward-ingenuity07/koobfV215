@@ -18,7 +18,7 @@
                 </div>
             -->
 
-        <md-list-item class="md-3-line" id="{{new.id}}" name="{{new.title}}" ng-click="thread_chosen($event)" ng-repeat="new in contacted">
+        <md-list-item class="md-3-line" id="{{new.id}}" name="{{new.title}}" ng-click="thread_chosen(new)" ng-repeat="new in contacted">
             <img src="money_eyes.png" class="md-avatar" />
             <div class="md-list-item-text" layout="column">
                 <p><b>{{new.title}}</b></p>
