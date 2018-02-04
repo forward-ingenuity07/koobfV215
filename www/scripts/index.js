@@ -277,6 +277,18 @@ ga('send', 'pageview');
                 }
             
             */
+            var contact_list = {
+                id: JSON.parse(jsonData.notification.payload.additionalData.from),
+                title: JSON.parse(jsonData.notification.payload.additionalData.title),
+                lastMessage: JSON.parse(jsonData.notification.payload.additionalData.message),
+                messageThread: {
+                    userId: window.localStorage.getItem("id"),
+                    text: JSON.parse(jsonData.notification.payload.additionalData.message),
+                    float: 'right',
+                    classify: 'mes2'
+                }
+            }
+            window.localStorage.setItem("contacteds", JSON.stringify(contact_list));
             location.href = '#/app/messages';
             
 
