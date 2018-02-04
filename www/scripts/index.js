@@ -290,8 +290,83 @@ ga('send', 'pageview');
             }
             window.localStorage.setItem("contacteds", JSON.stringify(contact_list));
             location.href = '#/app/messages';
-       */     
+       */
+            if (window.localStorage.getItem("contacteds") != null) {
+                var contacteds = [{}];
+                contacteds = JSON.parse(window.localStorage.getItem("contacteds"));
+                for (var i = 0; i < contacteds.length; i++) {
+                    if (contacteds[i].id == jsonData.notification.payload.additionalData.from && contacteds[i].title == jsonData.notification.payload.additionalData.title) {
+                        contacteds[i].lastMessage = jsonData.notification.payload.additionalData.message;
+                        if (typeof contacteds[i].messageThread == 'undefined') {
+                            contacteds[i].messageThread = [{
+                                userId: jsonData.notification.payload.additionalData.from,
+                                text: jsonData.notification.payload.additionalData.message,
+                                time: '12:15 PM',
+                                float: 'right',
+                                classify: 'mes2',
+                                
+                            }];
+                        }
+                        else {
 
+                            (contacteds[i].messageThread).push({
+                                userId: jsonData.notification.payload.additionalData.from,
+                                text: jsonData.notification.payload.additionalData.message,
+                                time: '12:15 PM',
+                                float: 'right',
+                                classify: 'mes2',
+                               
+                            });
+
+
+                        }
+
+                        break;
+                    }
+                    else if (i == contacteds.length - 1 && (contacteds[i].id != jsonData.notification.payload.additionalData.from || contacteds[i].title != jsonData.notification.payload.additionalData.title)) {
+                        contacteds.push({
+                            id: jsonData.notification.payload.additionalData.from,
+                            title: jsonData.notification.payload.additionalData.title,
+                            lastMessage: jsonData.notification.payload.additionalData.message,
+
+                            messageThread: [{
+                                userId: jsonData.notification.payload.additionalData.from,
+                                text: jsonData.notification.payload.additionalData.message,
+                                float: 'right',
+                                classify: 'mes2',
+                                time: '12:15 PM'
+
+                            }]
+                        })
+                        //  contacteds[contacteds.length - 1].messageThread.push(message);
+                    }
+                }
+
+
+                window.localStorage.setItem("contacteds", JSON.stringify(contacteds));
+               
+            }
+            else {
+                var contacteds = [{}];
+                contacteds.push({
+                    id: jsonData.notification.payload.additionalData.from,
+                    title: jsonData.notification.payload.additionalData.title,
+                    lastMessage: jsonData.notification.payload.additionalData.message
+                });
+                /*    if ($scope.contacted!=null){
+                    $scope.contacted.push({
+                        id: window.localStorage.getItem("target_user"),
+                        title: window.localStorage.getItem("target_book"),
+                        lastMessage: message
+                    });
+                        $scope.$apply();
+                    }*/
+                window.localStorage.setItem("contacteds", JSON.stringify(contacteds));
+               
+
+            }
+
+            location.href = '#/app/news'
 
 
 

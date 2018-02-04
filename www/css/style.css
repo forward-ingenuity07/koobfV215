@@ -162,7 +162,15 @@ img { max-width: 100%; height:auto; }
   text-align: left !important;
   max-width: 240px !important;
 }
-
+.mes2 {
+  background: green !important;
+  display: inline-block !important;
+  color: white !important;
+  padding: 10px !important;
+  border-radius: 10px !important;
+  text-align: left !important;
+  max-width: 240px !important;
+}
 /* Media */
 video, audio { width:100%; max-width:100%; box-sizing: border-box; display: inline-block; }
 
