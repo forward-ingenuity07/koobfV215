@@ -278,12 +278,12 @@ ga('send', 'pageview');
             
             */
             var contact_list = {
-                id: JSON.parse(jsonData.notification.payload.additionalData.from),
-                title: JSON.parse(jsonData.notification.payload.additionalData.title),
-                lastMessage: JSON.parse(jsonData.notification.payload.additionalData.message),
+                id: jsonData.notification.payload.additionalData.from,
+                title: jsonData.notification.payload.additionalData.title,
+                lastMessage: jsonData.notification.payload.additionalData.message,
                 messageThread: {
                     userId: window.localStorage.getItem("id"),
-                    text: JSON.parse(jsonData.notification.payload.additionalData.message),
+                    text: jsonData.notification.payload.additionalData.message,
                     float: 'right',
                     classify: 'mes2'
                 }
